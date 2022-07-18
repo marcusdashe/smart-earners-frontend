@@ -1,27 +1,31 @@
-import { getUser } from "../../../redux/auth/auth";
+// import { getUser } from "../../../redux/auth/auth";
 import { useState, useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import { UserWrapper } from "./styles";
 import Loader_ from "../loader/Loader";
-import DashboardHeader from "../DashboardHeader.jsx";
 
 
 
-export default function Index({userInfo}) {
+export default function Investment({userInfo}) {
   const dispatch = useDispatch()
   const state = useSelector(state=>state);
   const [isLoading, setLoading] = useState(true)
-  const {user} = state.auth;
+//   const {user} = state.auth;
 
   useEffect(()=>{
     setLoading(true)
-    dispatch(getUser())
+    // dispatch(getUser())
 
     setTimeout(()=>{
-      user.isLoading ? setLoading(true) : setLoading(false)
+    //   user.isLoading ? setLoading(true) : setLoading(false)
+        setLoading(false)
     }, 1000)
   }, [])
 
+// console.log(user)
+    const user = {
+        data: ''
+    }
 
 
   return (
@@ -42,7 +46,6 @@ export default function Index({userInfo}) {
       ):
       (
         <UserWrapper>
-          <DashboardHeader />
           display data here
         </UserWrapper>
       )

@@ -39,7 +39,7 @@ export const Signup=()=>{
     const [showCPassword, setShowCPassword] = useState(false);
 
     const [feedback, setFeedback] = useState({
-        msg: auth.signin.msg,
+        msg: auth.signup.msg,
         status: false
     });
 
@@ -66,7 +66,7 @@ export const Signup=()=>{
         dispatch(signup(inp))
 
         setFeedback({
-            msg: auth.signin.msg,
+            msg: auth.signup.msg,
             status: true
         });
 

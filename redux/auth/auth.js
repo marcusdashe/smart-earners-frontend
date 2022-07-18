@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { BACKEND_BASE_URL } from '../../utils/config';
+import Cookies from 'js-cookie';
 
 
 // sign up action
@@ -85,9 +85,9 @@ export const resetPasswordRequest= createAsyncThunk(
 // reset password
 export const resetPassword= createAsyncThunk(
     'auth/resetPassword',
-    async(token, {rejectWithValue})=>{
+    async(options, {rejectWithValue})=>{
         try{
-            const res = await axios.get(`${BACKEND_BASE_URL}/auth/reset-pass-request?token=${token}`);
+            const res = await axios.post(`${BACKEND_BASE_URL}/auth/reset-pass?token=${options.token}`, options.data);
             return res.data
         }
         catch(err){
@@ -120,14 +120,67 @@ export const verifyAccount= createAsyncThunk(
     }
 )
 
+// get user
+export const getUser= createAsyncThunk(
+    'auth/getUser',
+    async(data, {rejectWithValue})=>{
+        try{
+            if(Cookies.get('accesstoken')){
 
+                const res = await axios.get(`${BACKEND_BASE_URL}/auth/get-profile`, {
+                    headers: {
+                        "Authorization": `Bearer ${Cookies.get('accesstoken')}`
+                    }
+                });
+                return res.data;
+            }            
+        }
+        catch(err){
+            if(err.response.data){
+                return rejectWithValue({status: false, msg: err.response.data.msg});
+            }
+            else{
+                return rejectWithValue({status: false, msg: err.message, data: ''});
+            }
+        }
+    }
+)
+
+// resend verification link
+export const sendVerificationLink= createAsyncThunk(
+    'auth/verifyLink',
+    async(data, {rejectWithValue})=>{
+        try{
+            if(Cookies.get('accesstoken')){
+                const res = await axios.get(`${BACKEND_BASE_URL}/resend-verification-link`, {
+                    headers: {
+                        "Authorization": `Bearer ${Cookies.get('accesstoken')}`
+                    }
+                });
+                console.log("res.data")
+                return res.data;
+            }            
+        }
+        catch(err){
+            console.log(err.response.data)
+            if(err.response.data){
+                return rejectWithValue({status: false, msg: err.response.data.msg});
+            }
+            else{
+                return rejectWithValue({status: false, msg: err.message, data: ''});
+            }
+        }
+    }
+)
 
 const initialState = {
     signup: { isLoading: false, status: false, msg: ''},
     signin: { isLoading: false, status: false, msg: ''},
-    resetPassReq: { isLoading: false, status: false, msg: '' },
+    resetPassReq: { isLoading: false, status: false, msg: '', token: '' },
     resetPass: { isLoading: false, status: false, msg: '' },
     verify: { isLoading: false, status: false, msg: '' },
+    user: { isLoading: false, status: false, msg: '', data: ''},
+    sendVerifyLink: { isLoading: false, status: false, msg: ''},
 }
 
 export const authReducer = createSlice({
@@ -188,6 +241,7 @@ export const authReducer = createSlice({
             state.resetPassReq.isLoading = false;
             state.resetPassReq.status = payload.status;
             state.resetPassReq.msg = payload.msg;
+            state.resetPassReq.token = payload.token;
         },
         [resetPasswordRequest.rejected]: (state, {payload})=>{
             state.resetPassReq.isLoading = false;
@@ -243,6 +297,51 @@ export const authReducer = createSlice({
                 // to get rid of next js server error
                 state.verify.status = false;
                 state.verify.msg = 'Error occured';
+            }
+        },
+
+        // get user
+        [getUser.pending]: (state)=>{
+            state.user.isLoading = true;
+        },
+        [getUser.fulfilled]: (state, {payload})=>{
+            state.user.isLoading = false;
+            state.user.status = payload.status;
+            state.user.msg = payload.msg;
+            state.user.data = payload.data;
+        },
+        [getUser.rejected]: (state, {payload})=>{
+            state.user.isLoading = false;
+            if(payload){
+                state.user.status = payload.status;
+                state.user.msg = payload.msg;
+
+            }else{
+                // to get rid of next js server error
+                state.user.status = false;
+                state.user.msg = 'Error occured';
+            }
+        },
+
+        // resend verification link
+        [sendVerificationLink.pending]: (state)=>{
+            state.sendVerifyLink.isLoading = true;
+        },
+        [sendVerificationLink.fulfilled]: (state, {payload})=>{
+            state.sendVerifyLink.isLoading = false;
+            state.sendVerifyLink.status = payload.status;
+            state.sendVerifyLink.msg = payload.msg;
+        },
+        [sendVerificationLink.rejected]: (state, {payload})=>{
+            state.sendVerifyLink.isLoading = false;
+            if(payload){
+                state.sendVerifyLink.status = payload.status;
+                state.sendVerifyLink.msg = payload.msg;
+
+            }else{
+                // to get rid of next js server error
+                state.sendVerifyLink.status = false;
+                state.sendVerifyLink.msg = 'Error occured';
             }
         },
     }

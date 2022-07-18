@@ -167,7 +167,7 @@ export const Signin=({userInfo})=>{
                 <SubTitle bottomMargin="0">
                     Don't have an Account?
                     {" "}
-                    <AuthLink  href="/signup">Sign Up</AuthLink>
+                    <AuthLink href="/signup">Sign Up</AuthLink>
                 </SubTitle>
 
             </Form>

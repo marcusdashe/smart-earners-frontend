@@ -32,7 +32,6 @@ const Plans = ({userInfo}) => {
     const dispatch = useDispatch()
     const state = useSelector(state=>state);
     const {plans} = state.plans;
-    // console.log(plans)
   
     useEffect(()=>{
         dispatch(getPlans())

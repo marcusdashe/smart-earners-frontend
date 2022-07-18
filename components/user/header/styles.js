@@ -6,11 +6,11 @@ const Header = styled.div`
     background: var(--major-color-purest);
     position: ${({stick, isMobile})=>stick && !isMobile ? 'fixed' : 'static'};
     color: #fff;
-    z-index: 1000;
     padding: 0px 30px;
     color: #fff;
     user-select: none;
     --webkit-user-select: none;
+    z-index: 1000;
 
     .logo {
         width: 60px;

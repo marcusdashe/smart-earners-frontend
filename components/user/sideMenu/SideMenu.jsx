@@ -33,16 +33,14 @@ export default function SideMenu({navLinks, shrink, userInfo, showMenu, setShowM
                             navLinks.map((link, i)=>{
                                 return (
                                     <div key={i}>
-                                        <Link href={link.url} passHref>
-                                            <a>
-                                                <div className={link.url === router.asPath ? 'side-menu-active-icon icon' : 'icon'}>
-                                                    {link.icon}
-                                                </div>
-                                                <div className={link.url === router.asPath ? 'side-menu-active-link link' : 'link'}>
-                                                    {link.link}
-                                                </div>
-                                            </a>
-                                        </Link>
+                                        <a href={link.url} >
+                                            <div className={link.url === router.asPath ? 'side-menu-active-icon icon' : 'icon'}>
+                                                {link.icon}
+                                            </div>
+                                            <div className={link.url === router.asPath ? 'side-menu-active-link link' : 'link'}>
+                                                {link.link}
+                                            </div>
+                                        </a>
                                     </div>
                                 )
                             })

@@ -2,7 +2,7 @@ import { Notification , NotificationWrapper} from './styles'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'; 
 
 export default function Notifications({showNotif, setShowNotif, showDropDown, alert, setDropDown}) {
-  console.log(showDropDown)
+  
   const handleShowNotif =()=>{
     setShowNotif(!showNotif);
     setDropDown(false)

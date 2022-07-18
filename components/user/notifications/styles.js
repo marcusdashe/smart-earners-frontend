@@ -3,6 +3,7 @@ import styled from 'styled-components'
 const NotificationWrapper = styled.div`
     position: relative;
     cursor: pointer;
+    z-index: 1000;
 
     .alert{
         width: 18px;
@@ -28,7 +29,7 @@ const Notification = styled.div`
     padding: 5px 10px;
     height: 300px;
     max-height: 500px;;
-    box-shadow: -1px 2px 6px 1px #aaa, -2px -2px 3px #aaa;
+    box-shadow: -1px 2px 6px 1px #333, -2px -2px 3px #333;
     right: -20px;
     top: 60px;
     cursor: default;

@@ -14,6 +14,7 @@ const MobileMenu_ = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 1000;
 
         .dropDownBtn {
             border: 1px solid #aaa;

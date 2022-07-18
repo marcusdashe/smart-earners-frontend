@@ -102,7 +102,7 @@ export default function VerifyAccount() {
 
   return (
     <VerifyWrapper>
-      <h1 style={{margin: '10px 0'}} className="title">SmartEarners' <span>Invesement</span></h1>
+      <h1 style={{margin: '10px 0'}} className="title">SmartEarners' <span>Investment</span></h1>
       <h3 className="subTitle">We Trade it, You Learn & Earn it</h3>
   
       <div className="msg">

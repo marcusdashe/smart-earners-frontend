@@ -5,6 +5,8 @@ import { RiCloseLine} from 'react-icons/ri'
 import { useSnap } from '@mozeyinedu/hooks-lab'; 
 import { resetPasswordRequest } from "../../../redux/auth/auth";
 import Spinner from "../../../loaders/Spinner";
+import { FRONTEND_BASE_URL } from "../../../utils/config";
+
 
 import {
     AuthWrapper,
@@ -18,6 +20,7 @@ import {
     Success,
     Close
 } from "./styles/auth";
+
 
 export const ResetPasswordRequest=()=>{
 
@@ -57,7 +60,6 @@ export const ResetPasswordRequest=()=>{
         // clear form input
         resetPassReq.status ? setInpt(intitialState) : setInpt({...inp, email: ''});
 
-        // get the returned data, check if token is defined (this means that verifyEmail option is turned off and the user can reset his/her password without email verification)
     }
 
     // handle close feedback msg
@@ -72,12 +74,18 @@ export const ResetPasswordRequest=()=>{
         // empty form input
         resetPassReq.status ? setInpt(intitialState) : setInpt({...inp, email: ''})
 
+        // get the returned data, check if token is defined (this means that verifyEmail option is turned off and the user can reset his/her password without email verification)
+
+        if(resetPassReq.token){
+            location.href = `${FRONTEND_BASE_URL}/reset-password/?token=${resetPassReq.token}`
+        }
+
    }, [resetPassReq.status])
 
     return (
         <>
         <AuthWrapper>
-            <Form onSubmit={submit}>
+        <Form onSubmit={submit}>
               <Title>Reset Password</Title>
               <SubTitle bottomMargin="20px">Forex Trading Solution for Everyone</SubTitle>
               {
@@ -118,9 +126,7 @@ export const ResetPasswordRequest=()=>{
               </InputWrapper>
 
               <SubTitle bottomMargin="5px">
-              <a href="/signin">
-                  <AuthLink>Sign In?</AuthLink>
-              </a>
+                  <AuthLink href="/signin">Sign In</AuthLink>
               </SubTitle>
 
               <InputWrapper>

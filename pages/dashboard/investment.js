@@ -1,8 +1,8 @@
 import React from 'react'
-import Withdrawals from '../../components/user/withdrawals/Withdrawals';
+import Investment from '../../components/user/investment/Investment'
 
-export default function withdrawals() {
-  return <Withdrawals />
+export default function investment() {
+  return <Investment />
 }
 
 

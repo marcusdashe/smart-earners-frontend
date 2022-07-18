@@ -1,8 +1,8 @@
 import React from 'react'
-import Withdrawals from '../../components/user/withdrawals/Withdrawals';
+import Referrals from '../../components/user/referrals/Referrals'
 
-export default function withdrawals() {
-  return <Withdrawals />
+export default function referrals() {
+  return <Referrals />
 }
 
 
