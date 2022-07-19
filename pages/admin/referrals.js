@@ -1,7 +1,8 @@
-import Index from "../../components/admin/home"
+import React from 'react'
+import Referrals from '../../components/admin/referrals/Referrals'
 
-export default function index({}) {
-  return <Index />
+export default function referrals() {
+  return <Referrals />
 }
 
 

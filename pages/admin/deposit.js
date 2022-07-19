@@ -1,9 +1,9 @@
-import Index from "../../components/admin/home"
+import React from 'react'
+import Deposit from '../../components/user/deposit/Deposit'
 
-export default function index({}) {
-  return <Index />
+export default function deposit() {
+  return <Deposit />
 }
-
 
 
 // handle redirect if user sign in

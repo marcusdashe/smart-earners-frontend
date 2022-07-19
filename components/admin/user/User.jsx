@@ -6,10 +6,11 @@ import Loader_ from "../loader/Loader";
 
 
 
-export default function Index({userInfo}) {
+export default function User({userInfo}) {
   const dispatch = useDispatch()
   const state = useSelector(state=>state);
   const [isLoading, setLoading] = useState(true)
+  // const {user} = state.aUser;
 
   useEffect(()=>{
     setLoading(true)
@@ -21,7 +22,7 @@ export default function Index({userInfo}) {
     }, 1000)
   }, [])
 
-  const analysis = {
+  const user = {
     data: ''
   }
 
@@ -37,7 +38,7 @@ export default function Index({userInfo}) {
     (
       //check if empty
 
-      !analysis.data ? 
+      !user.data ? 
       (
           <div style={{textAlign: 'center'}}>No Data Currently Available</div>
       ):

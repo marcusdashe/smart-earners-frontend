@@ -189,6 +189,7 @@ export const authReducer = createSlice({
     extraReducers: {
 
         // handleSign up
+
         [signup.pending]: (state)=>{
             state.signup.isLoading = true;
         },

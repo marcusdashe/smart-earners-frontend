@@ -1,7 +1,5 @@
 import { style } from "@mui/system";
 import styled, {createGlobalStyle, css} from "styled-components";
-const LIGHT_THEME = '#fff'
-const DARK_THEME = '#000'
 
 const ScrollBar = ()=> css`
   &::-webkit-scrollbar-thumb {

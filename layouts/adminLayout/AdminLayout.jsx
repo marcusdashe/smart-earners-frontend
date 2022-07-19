@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import Header_ from '../../components/admin/header/Header';
 import styled from 'styled-components';
 import SideMenu_ from '../../components/admin/sideMenu/SideMenu';
@@ -28,31 +28,31 @@ const Main = styled.div`
 `
 
 const TopFlap = styled.div`
-  width: 50px;
+  width: 100%;
   height: 100%;
   position: absolute;
-  overflow-x: hidden;
-  white-space: nowrap;
-  top: 0;
-  left: 0;
+  padding: 10px 15px;
+  top: 5px;
+  left: 40px;
   z-index: 1;
   background: ${({toggleState})=>toggleState ? '#fff' : '#000'};
-  box-shadow: 0px 4px 4px 2px #706a6a;
+  box-shadow: -1px -1px 3px 2px #363333;
   bottom: 0;
 
-  ${ScrollBar()}
+  ${ScrollBar()};
 
   .handle {
     position: absolute;
     width: 8px;
     height: 100%;
-    right: 0;
+    background: teal;
+    left: 0;
     bottom: 0;
     cursor: ew-resize
   }
 
   .dragging{
-    border-right: 3px solid var(--major-color-purest);
+    border-left: 3px solid var(--major-color-purest);
   }
 `
 
@@ -66,14 +66,21 @@ const BottomFlap = styled.div`
   right: 0;
   bottom: 0;
 
-  ${ScrollBar()}
+  ${ScrollBar()};
 `
 
 
 export default function AdminLayout({children, userInfo, toggleState}) {
     const topFlapRef = useRef()
     const mainRef = useRef()
-    const [ dragging, setDragging ] = useState(false)
+    const [ dragging, setDragging ] = useState(false);
+    const [ rect, setRect ] = useState(0);
+    
+    useEffect(()=>{
+      setRect(topFlapRef.current.getBoundingClientRect());
+    }, [])
+
+    
 
     function startDragMouse(){
         setDragging(true)
@@ -82,7 +89,19 @@ export default function AdminLayout({children, userInfo, toggleState}) {
 
     function dragMouse(e){
         const width = e.clientX;
-        if(dragging) topFlapRef.current.style.width = `${width}px`
+        if(dragging) {
+          
+          if(width > 250 && width < topFlapRef.current.clientWidth - 100) {
+            return
+          }else{
+            if(width > 1){
+              topFlapRef.current.style.left = `${width}px`;
+            }
+          }
+        }
+
+
+        
     }
 
     function stopDragMouse(){
@@ -93,16 +112,30 @@ export default function AdminLayout({children, userInfo, toggleState}) {
     function startDragTouch(){
         setDragging(true)
         mainRef.current.style.cursor = 'ew-resize'
+        
     }
 
     function dragTouch(e){
-        const width = e.clientX;
-        if(dragging) topFlapRef.current.style.width = `${width}px`
+        const width = e.touches[0].clientX
+        if(dragging) {
+          
+          if(width > 250 && width < topFlapRef.current.clientWidth - 100) {
+            return
+          }else{
+            if(width > 1){
+              topFlapRef.current.style.left = `${width}px`;
+            }
+          }
+        }
+
+        
     }
+
 
     function stopDragTouch(){
         mainRef.current.style.cursor = 'default'
-        setDragging(false)
+        setDragging(false);
+        
     }
 
     return (
@@ -120,6 +153,11 @@ export default function AdminLayout({children, userInfo, toggleState}) {
           onTouchEnd={stopDragTouch}
           onTouchMove={dragTouch}
           >
+
+          <BottomFlap userInfo={userInfo} toggleState={toggleState}>
+            <SideMenu_ userInfo={userInfo}/>
+          </BottomFlap>  
+
           <TopFlap toggleState={toggleState} ref={topFlapRef} userInfo={userInfo}>
             <div
               onMouseDown={startDragMouse}
@@ -127,12 +165,9 @@ export default function AdminLayout({children, userInfo, toggleState}) {
               className={dragging ? 'handle dragging' : 'handle'}
               >
             </div>
-            <SideMenu_ userInfo={userInfo}/>
-          </TopFlap>
-
-          <BottomFlap userInfo={userInfo} toggleState={toggleState}>
+            
             {children}
-          </BottomFlap>    
+          </TopFlap>  
 
         </Main>   
       </>

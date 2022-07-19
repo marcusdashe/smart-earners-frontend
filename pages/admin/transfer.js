@@ -1,9 +1,9 @@
-import Index from "../../components/admin/home"
+import React from 'react'
+import Transfer from '../../components/admin/transfer/Transfer'
 
-export default function index({}) {
-  return <Index />
+export default function transfer() {
+  return <Transfer />
 }
-
 
 
 // handle redirect if user sign in

@@ -6,10 +6,11 @@ import Loader_ from "../loader/Loader";
 
 
 
-export default function Index({userInfo}) {
+export default function Withdrawals({userInfo}) {
   const dispatch = useDispatch()
   const state = useSelector(state=>state);
   const [isLoading, setLoading] = useState(true)
+  // const {withdrawals} = state.aWithdrawals;
 
   useEffect(()=>{
     setLoading(true)
@@ -21,13 +22,13 @@ export default function Index({userInfo}) {
     }, 1000)
   }, [])
 
-  const analysis = {
+  const withdrawals = {
     data: ''
   }
 
   return (
     
-    //check if user exist
+    //check if withdrawals exist
 
     isLoading ? 
     (
@@ -37,7 +38,7 @@ export default function Index({userInfo}) {
     (
       //check if empty
 
-      !analysis.data ? 
+      !withdrawals.data ? 
       (
           <div style={{textAlign: 'center'}}>No Data Currently Available</div>
       ):

@@ -1,9 +1,9 @@
-import Index from "../../components/admin/home"
+import React from 'react'
+import Investment from '../../components/admin/investment/Investment'
 
-export default function index({}) {
-  return <Index />
+export default function investment() {
+  return <Investment />
 }
-
 
 
 // handle redirect if user sign in

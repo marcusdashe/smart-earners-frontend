@@ -1,7 +1,8 @@
-import Index from "../../components/admin/home"
+import React from 'react'
+import Transactions from '../../components/admin/transactions/Transactions'
 
-export default function index({}) {
-  return <Index />
+export default function transactions() {
+  return <Transactions />
 }
 
 

@@ -25,7 +25,7 @@ export const getConfig= createAsyncThunk(
 
 
 const initialState = {
-    config: { isLoading: false, status: false, msg: '', data: {}},
+    config: { isLoading: false, status: false, msg: '', data: ''},
     // authorize: { status: false, type: 'none', msg: '' }
 }
 
@@ -41,7 +41,7 @@ export const configReducer = createSlice({
             state.config.isLoading = false;
             state.config.status = payload.status;
             state.config.msg = payload.msg;
-            state.config.data = {...state.config.data, ...payload.data}
+            state.config.data = payload.data
         },
         [getConfig.rejected]: (state, {payload})=>{
             state.config.isLoading = false;

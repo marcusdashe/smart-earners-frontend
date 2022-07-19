@@ -89,7 +89,9 @@ const DashboardHeader = () => {
 const StyledDashboardHeader = styled.div`
     width: 100%;
     height: 150px;
-    background: #5d6672;
+    // background: #5d6672;
+    background: #fff;
+    box-shadow: 2px 2px 5px #aaa;
     position: relative;
     color: #fff;
     z-index: 1;

@@ -1,9 +1,10 @@
-import Index from "../../components/admin/home"
+import User from "../../components/admin/user/User";
 
-export default function index({}) {
-  return <Index />
+
+
+export default function deposit() {
+  return <User />
 }
-
 
 
 // handle redirect if user sign in
