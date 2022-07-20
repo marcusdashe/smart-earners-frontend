@@ -64,7 +64,8 @@ const router = useRouter()
       link: 'Config',
       url: '/admin/web-config',
       icon: <SettingsIcon />
-    }
+    },
+    
 ]
 
   return (

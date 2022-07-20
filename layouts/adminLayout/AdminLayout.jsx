@@ -18,19 +18,19 @@ const Header = styled.div`
 `
 const Main = styled.div`
   width: 100%;
-  height: calc(100vh - 55px);
+  min-height: calc(100% - 55px);
   left: 0;
   right: 0;
   z-index: 1;
   top: 55px;
   padding-right: 100px;
-  position: fixed;
+  position: absolute;
 `
 
 const TopFlap = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   padding: 10px 15px;
   top: 5px;
   left: 40px;
@@ -38,8 +38,6 @@ const TopFlap = styled.div`
   background: ${({toggleState})=>toggleState ? '#fff' : '#000'};
   box-shadow: -1px -1px 3px 2px #363333;
   bottom: 0;
-
-  ${ScrollBar()};
 
   .handle {
     position: absolute;
@@ -59,14 +57,13 @@ const TopFlap = styled.div`
 const BottomFlap = styled.div`
   width: 100%;
   padding-left: 52px;
-  height: 100%;
-  position: absolute;
+  height: 100vh;
+  position: fixed;
   background: ${({toggleState})=>toggleState ? '#fff' : '#000'};
   top: 0;
   right: 0;
   bottom: 0;
 
-  ${ScrollBar()};
 `
 
 

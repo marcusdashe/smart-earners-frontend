@@ -4,7 +4,10 @@ const nextConfig = {
   swcMinify: true,
   compiler: {
     // enables the styled-components SWC transform
-    styledComponents: true
+    styledComponents: true,
+    eslint: {
+      ignoreDuringBuilds: true
+    }
   }
 }
 

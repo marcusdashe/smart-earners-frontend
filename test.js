@@ -18,6 +18,7 @@ const getAllUserrs = createAsyncThunk(
     'auth/getAllUsers'
 )
 
+const kj = "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"
 
 
 export const authReducer = createSlice({
