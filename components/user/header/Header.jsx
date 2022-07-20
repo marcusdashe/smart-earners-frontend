@@ -1,5 +1,6 @@
 import { Header } from "./styles"
 import { useRouter } from "next/router";
+import Link from 'next/link'
 import { useState, useEffect } from "react";
 import Image from 'next/image'
 import { MdClose, MdMenu} from 'react-icons/md';
@@ -139,7 +140,9 @@ export default function Header_({userInfo}) {
                     <div className="larger-screen-view">
                         {/* logo */}
                         <div className="col1 logo">
-                            <a href='/'><Image width='100' height='100' src={logo} alt="" /></a>
+                            <Link href='/' passHref>
+                                <a><Image width='100' height='100' src={logo} alt="" /></a>
+                            </Link>
                         </div>
 
                         {/* nav links */}
@@ -149,9 +152,11 @@ export default function Header_({userInfo}) {
                                 navLinks.map((link, i)=>{
                                     return (
                                         <div className="navLinkWrapper" key={i}>
-                                            <a href={link.url}>
-                                                <div className={link.url === router.asPath ? 'active link' : 'link'}>{link.link}</div>
-                                            </a>
+                                            <Link  href={link.url} passHref>
+                                                <a>
+                                                    <div className={link.url === router.asPath ? 'active link' : 'link'}>{link.link}</div>
+                                                </a>
+                                            </Link>
                                         </div>
                                     )
                                 })
@@ -181,12 +186,14 @@ export default function Header_({userInfo}) {
 
                         {/* logo */}
                         <div className="col2 logo">
-                            <a href='/' ><Image width='100' height='100' src={logo} alt="" /></a>
+                            <Link  href='/'  passHref>
+                                <a><Image width='100' height='100' src={logo} alt="" /></a>
+                            </Link>
                         </div>
 
                         {/* current page name */}
                         <div className='col3'>
-                            <NavAuthBtn stick={false} setShowMenu={false} userInfo={userInfo}/>
+                            <NavAuthBtn stick={false} setShowMenu={setShowMenu} userInfo={userInfo}/>
                         </div>
 
                         <Notifications showNotif={showNotif} alert={true} setDropDown={setDropDown} showDropDown={showDropDown} setShowNotif={setShowNotif}/>

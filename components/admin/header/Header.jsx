@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import HomeIcon from '@mui/icons-material/Home';
+import Link from 'next/link'
 import NavAuthBtn from '../../navAuthBtn/NavAuthBtn';
+import {useState} from 'react'
 
 const logo = '/onboadinglogo.png';
 
@@ -11,6 +13,7 @@ import {
 
 
 export default function Header_({userInfo}) {
+  const [showMenu, setShowMenu] = useState(false)
 
   return (
     <Header>
@@ -18,19 +21,23 @@ export default function Header_({userInfo}) {
         <div className="top-nav-bar">
             {/* logo */}
             <div className="col1 logo">
-                  <a href='/'><Image width='100' height='100' src={logo} alt="" /></a>
+                 <Link  href='/' passHref>
+                    <a><Image width='100' alt='logo' height='100' src={logo}/></a>
+                 </Link>
             </div>
 
             {/* home icon */}
             <div className="col1 toggle-menu">
-                <a  href='/'  style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                    <HomeIcon />
-                </a>
+                <Link  href='/' passHref>
+                  <a style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                      <HomeIcon />
+                  </a>
+                </Link>
             </div>
 
              {/* nav link btn */}
              <div className='col3'>
-                  <NavAuthBtn stick={true} shrink={true} userInfo={userInfo}/>
+                  <NavAuthBtn setShowMenu={setShowMenu} stick={true} shrink={true} userInfo={userInfo}/>
               </div>
         </div>        
     </Header>

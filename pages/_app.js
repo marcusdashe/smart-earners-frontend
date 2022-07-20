@@ -13,9 +13,10 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
 import Preloader from '../loaders/Preloader';
 import useToggle from '../hooks/toggles/toggles';
+import Cookies from 'js-cookie';
 
-function MyApp({ Component, pageProps, userInfo }) {
-  
+function MyApp({ Component, pageProps }) {
+    
   resolveApi.generateAccesstoken()
   resolveApi.authorize()
   
@@ -23,9 +24,18 @@ function MyApp({ Component, pageProps, userInfo }) {
   const { toggle, toggleState } = useToggle(); 
   const [loading, setLoading] = useState(true);
 
+  const [userInfo, setUserInfo] = useState({
+    refreshtoken: '',
+    accesstoken: '',
+    type: ''
+  });
+
+  // console.log(userInfo)
+  
   const handleChangeStart =(url)=> {
       NProgress.start()
   };
+
   const handleChangeComplete =(url)=>{
       setTimeout(()=> {
           NProgress.done();
@@ -48,6 +58,21 @@ function MyApp({ Component, pageProps, userInfo }) {
       }
   }, [])
 
+
+  useEffect(()=>{
+    // get user info from the cookies
+
+    setUserInfo({
+      ...userInfo,
+      refreshtoken: Cookies.get('refreshtoken'),
+      accesstoken: Cookies.get('accesstoken'),
+      type: Cookies.get('type')
+    })
+
+    
+
+  }, [Cookies.get('refreshtoken')])
+  
   return (
     <Provider store={store}>
       <Head>
@@ -74,8 +99,8 @@ function MyApp({ Component, pageProps, userInfo }) {
               <MdLightMode style={{color: toggleState ? '#fff' : '#000'}} />
             </ToggleBtn>
             
-            <Layouts toggleState={toggleState}>
-                <Component {...pageProps} />
+            <Layouts userInfo={userInfo} toggleState={toggleState}>
+                <Component {...pageProps} userInfo={userInfo} />
             </Layouts>
           </>
         )
@@ -89,12 +114,12 @@ export default MyApp
 
 
 // get user unfo from cookies using getInitialProps before every render
-MyApp.getInitialProps=({ctx})=>{
+// MyApp.getInitialProps=({ctx})=>{
 
-  const userInfo = {
-    refreshtoken: ctx.req.cookies.refreshtoken,
-    accesstoken: ctx.req.cookies.accesstoken,
-    type: ctx.req.cookies.type
-  }
-  return {userInfo}
-}
+//   const userInfo = {
+//     refreshtoken: ctx.req.cookies.refreshtoken,
+//     accesstoken: ctx.req.cookies.accesstoken,
+//     type: ctx.req.cookies.type
+//   }
+//   return {userInfo}
+// }

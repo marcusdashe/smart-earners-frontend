@@ -6,7 +6,8 @@ import { useSnap } from '@mozeyinedu/hooks-lab';
 import { resetPasswordRequest } from "../../../redux/auth/auth";
 import Spinner from "../../../loaders/Spinner";
 import { FRONTEND_BASE_URL } from "../../../utils/config";
-
+import Link from 'next/link'
+import {useRouter} from 'next/router'
 
 import {
     AuthWrapper,
@@ -23,7 +24,7 @@ import {
 
 
 export const ResetPasswordRequest=()=>{
-
+    const router = useRouter()
     const dispatch = useDispatch();
     const { snap } = useSnap(.5);
     const state = useSelector(state=>state);
@@ -77,7 +78,7 @@ export const ResetPasswordRequest=()=>{
         // get the returned data, check if token is defined (this means that verifyEmail option is turned off and the user can reset his/her password without email verification)
 
         if(resetPassReq.token){
-            location.href = `${FRONTEND_BASE_URL}/reset-password/?token=${resetPassReq.token}`
+            router.push(`${FRONTEND_BASE_URL}/reset-password/?token=${resetPassReq.token}`)
         }
 
    }, [resetPassReq.status])
@@ -126,7 +127,9 @@ export const ResetPasswordRequest=()=>{
               </InputWrapper>
 
               <SubTitle bottomMargin="5px">
-                  <AuthLink href="/signin">Sign In</AuthLink>
+                 <Link href="/signin" passHref>
+                    <AuthLink>Sign In</AuthLink>
+                 </Link>
               </SubTitle>
 
               <InputWrapper>

@@ -5,6 +5,7 @@ import NavAuthBtn from "../../navAuthBtn/NavAuthBtn";
 import { MobileMenu_ } from './styles';
 const logo = '/onboadinglogo.png';
 import Notifications from '../notifications/Notifications';
+import Link from 'next/link'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react';
 
@@ -24,14 +25,18 @@ export default function Mobilemenu({bottomNavLinks, userInfo, alert, showNotif, 
                 
                 {/* logo */}
                 <div className="col2 logo">
-                    <a href='/'><Image width='100' height='100' src={logo} alt="" /></a>
+                    <Link href='/' passHref>
+                        <a ><Image width='100' height='100' src={logo} alt="" /></a>
+                    </Link>
                 </div>
 
                 {/* home icon */}
                 <div className="col1 toggle-menu">
-                    <a  href='/'  style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        <HomeIcon />
-                    </a>
+                    <Link  href='/' passHref>
+                        <a style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                            <HomeIcon />
+                        </a>
+                    </Link>
                 </div>
 
 
@@ -55,14 +60,16 @@ export default function Mobilemenu({bottomNavLinks, userInfo, alert, showNotif, 
                     bottomNavLinks.map((link, i)=>{
                         return (
                             <div key={i}>
-                                <a href={link.url} className="linkWrapper">
-                                    <div className={link.url === router.asPath ? 'active-icon link-icon' : 'link-icon'}>
-                                        {link.icon}
-                                    </div>
-                                    <div className={link.url === router.asPath ? 'active-link link' : 'link bottom-link'}>
-                                        {link.link}
-                                    </div>
-                                </a>
+                                <Link href={link.url} passHref>
+                                    <a className="linkWrapper">
+                                        <div className={link.url === router.asPath ? 'active-icon link-icon' : 'link-icon'}>
+                                            {link.icon}
+                                        </div>
+                                        <div className={link.url === router.asPath ? 'active-link link' : 'link bottom-link'}>
+                                            {link.link}
+                                        </div>
+                                    </a>
+                                </Link>
                             </div>
                         )
                     })

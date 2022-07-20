@@ -99,7 +99,7 @@ export default function PlanCards({data, i, userInfo}) {
 
       <HeroSectionText style={{fontWeight: '500'}}>{resolveLifespan(data.lifespan)}</HeroSectionText>
   
-      <Btn {...snap()} onClick={()=>location.href=`/dashboard/investment/${data._id}`}>INVEST</Btn>
+      <Btn {...snap()} onClick={()=>router.push(`/dashboard/investment/${data._id}`)}>INVEST</Btn>
     </Card>
   )
 }

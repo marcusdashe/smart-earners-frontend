@@ -5,6 +5,7 @@ import NavAuthBtn from '../navAuthBtn/NavAuthBtn';
 import { CopyRight } from '../../styles/globalStyle';
 import { mobileAndTabletCheck } from '../../utils/mobileAndTabletCheck';
 import { useEffect, useState } from 'react';
+import Link from 'next/link'
 
 
 export default function GlobalFooter_({userInfo}) {
@@ -66,10 +67,12 @@ export default function GlobalFooter_({userInfo}) {
                 {
                   navLinks.map((link, i)=>{
                     return (
-                        <a key={i} href={link.url} style={{display: 'inline-block'}}>
+                      <Link key={i} href={link.url} passHref>
+                        <a style={{display: 'inline-block'}}>
                             <div style={{display: 'inline-block'}} className={link.url === router.asPath ? 'active link' : 'link'}>{link.link}
                             </div>
                         </a>
+                      </Link>
                     )
                   })
                 }

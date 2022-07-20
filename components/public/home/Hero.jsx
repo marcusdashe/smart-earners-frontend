@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import {useSnap} from '@mozeyinedu/hooks-lab'
 import {useRouter} from 'next/router'
-import check from '../../../utils';
 
 import {
     HeroSectionWrapper,
@@ -11,7 +10,6 @@ import {
     HeroSectionSubTitle,
     HeroSectionText,
 } from './styles';
-
 
 
 
@@ -31,7 +29,7 @@ const Hero = () => {
                     SmartEarner is a trustworthy platform that has been in existence for years serving several financial institutions across the world.
                 </HeroSectionText>
             
-                <HeroButton {...snap()} onClick={()=>location.href=`/dashboard/investment/`} >INVEST NOW</HeroButton>
+                <HeroButton {...snap()} onClick={()=>router.push(`/dashboard/investment/`)} >INVEST NOW</HeroButton>
 
             </HeroSection>
     

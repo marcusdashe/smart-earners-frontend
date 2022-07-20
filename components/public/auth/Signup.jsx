@@ -92,7 +92,7 @@ export const Signup=()=>{
             type: Cookies.get('type')
         };
         
-        auth.signup.status ? check.redirectToDashboard(location, user_info, '/dashboard', '/admin') : ''  
+        auth.signup.status ? check.redirectToDashboard(router, user_info) : ''  
 
    }, [auth.signup.status])
  
@@ -199,7 +199,9 @@ export const Signup=()=>{
 
                 <SubTitle bottomMargin="0">
                     Already have an Account?
-                    <AuthLink href="/signin">Sign in</AuthLink>
+                    <Link href="/signin" passHref>
+                        <AuthLink>Sign in</AuthLink>
+                    </Link>
                 </SubTitle>
 
             </Form>

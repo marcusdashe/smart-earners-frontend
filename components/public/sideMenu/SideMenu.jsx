@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import NavAuthBtn from "../../navAuthBtn/NavAuthBtn";
 import { CopyRight } from "../../../styles/globalStyle";
+import Link from 'next/link'
 const logo = '/onboadinglogo.png';
 import {
     SideMenuRow1,
@@ -23,7 +24,9 @@ export default function SideMenu({navLinks, userInfo={userInfo}, showMenu, setSh
             <div className="content">
                 <SideMenuRow1>
                     <div className="logo">
-                        <a href='/'><Image width='100' height='100' src={logo} alt="" /></a>
+                       <Link  href='/' passHref>
+                            <a onClick={()=>setShowMenu(false)}><Image width='100' height='100' src={logo} alt="logo" /></a>
+                       </Link>
                     </div>
                 </SideMenuRow1>
 
@@ -32,8 +35,8 @@ export default function SideMenu({navLinks, userInfo={userInfo}, showMenu, setSh
                     {
                         navLinks.map((link, i)=>{
                             return (
-                                <div key={i}>
-                                    <a href={link.url} >
+                                <Link key={i} href={link.url} passHref>
+                                    <a onClick={()=>setShowMenu(false)}>
                                         <div className={link.url === router.asPath ? 'side-menu-active-icon icon' : 'icon'}>
                                             {link.icon}
                                         </div>
@@ -41,7 +44,7 @@ export default function SideMenu({navLinks, userInfo={userInfo}, showMenu, setSh
                                             {link.link}
                                         </div>
                                     </a>
-                                </div>
+                                </Link>
                             )
                         })
                     }
@@ -50,7 +53,7 @@ export default function SideMenu({navLinks, userInfo={userInfo}, showMenu, setSh
 
                 <SideMenuRow3>
                     <div style={{color: '#fff'}} className="nav">
-                        <NavAuthBtn shrink={true} userInfo={userInfo} />
+                        <NavAuthBtn setShowMenu={setShowMenu} shrink={true} userInfo={userInfo} />
                     </div>
                     <CopyRight className="copyright">
                         &copy; {new Date().getFullYear() > 2022 ? '2021 - ' + new Date().getFullYear() : 2022} Smart Earners

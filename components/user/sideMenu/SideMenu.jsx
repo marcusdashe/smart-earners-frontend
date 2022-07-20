@@ -23,7 +23,9 @@ export default function SideMenu({navLinks, shrink, userInfo, showMenu, setShowM
                 <div className="content">
                     <SideMenuRow1>
                         <div className="logo">
-                            <a href='/'><Image width='100' height='100' src={logo} alt="" /></a>
+                            <Link href='/' passHref>
+                                <a onClick={()=>setShowMenu(false)}><Image width='100' height='100' src={logo} alt="logo" /></a>
+                            </Link>
                         </div>
                     </SideMenuRow1>
 
@@ -32,8 +34,8 @@ export default function SideMenu({navLinks, shrink, userInfo, showMenu, setShowM
                         {
                             navLinks.map((link, i)=>{
                                 return (
-                                    <div key={i}>
-                                        <a href={link.url} >
+                                    <Link key={i} href={link.url}  passHref>
+                                        <a onClick={()=>setShowMenu(false)}>
                                             <div className={link.url === router.asPath ? 'side-menu-active-icon icon' : 'icon'}>
                                                 {link.icon}
                                             </div>
@@ -41,7 +43,7 @@ export default function SideMenu({navLinks, shrink, userInfo, showMenu, setShowM
                                                 {link.link}
                                             </div>
                                         </a>
-                                    </div>
+                                    </Link>
                                 )
                             })
                         }

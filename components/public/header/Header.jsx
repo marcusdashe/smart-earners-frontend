@@ -85,14 +85,16 @@ export default function Header_({userInfo}) {
                     stick ? '' :
                     (
                     <div className="logo">
-                        <a href='/' ><Image width='100' height='100' src={logo} alt="" /></a>
+                        <Link href='/' passHref>
+                            <a><Image width='100' height='100' src={logo} alt="logo" /></a>
+                        </Link>
                     </div>
                     )
                 } 
 
                 {/* signup, signup, logout and dashboard btns*/}
 
-                { stick ? '' : <NavAuthBtn userInfo={userInfo} stick={stick} /> }
+                { stick ? '' : <NavAuthBtn setShowMenu={setShowMenu} userInfo={userInfo} stick={stick} /> }
                 
             </TopNav>
 
@@ -116,7 +118,9 @@ export default function Header_({userInfo}) {
                         !stick ? '' :
                         (
                         <div className="logo-midNav">
-                            <a href='/'><Image width='100' height='100' src={logo} alt="" /></a>
+                            <Link href='/' passHref>
+                              <a><Image width='100' height='100' src={logo} alt="logo" /></a>
+                            </Link>
                         </div>
                         )
                     }
@@ -127,9 +131,11 @@ export default function Header_({userInfo}) {
                             navLinks.map((link, i)=>{
                                 return (
                                     <div id='active' key={i}>
-                                        <a href={link.url} >
-                                           <div className={link.url === router.asPath ? 'active link' : 'link'}>{link.link}</div>
-                                        </a>
+                                        <Link  href={link.url} passHref>
+                                            <a>
+                                                <div className={link.url === router.asPath ? 'active link' : 'link'}>{link.link}</div>
+                                            </a>
+                                        </Link>
                                     </div>
                                 )
                             })
@@ -138,7 +144,7 @@ export default function Header_({userInfo}) {
                     </div>
                     {/* signup, signup, logout and dashboard btns for sticky menu*/}
 
-                    { !stick ? '' : <NavAuthBtn stick={stick} userInfo={userInfo}/> }
+                    { !stick ? '' : <NavAuthBtn stick={stick}  setShowMenu={setShowMenu} userInfo={userInfo}/> }
                 </div>
                 
                 <div className="bottom-mid-nav" >

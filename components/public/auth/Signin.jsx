@@ -87,8 +87,10 @@ export const Signin=({userInfo})=>{
             refreshtoken: Cookies.get('refreshtoken'),
             type: Cookies.get('type')
         };
+
         
-        auth.signin.status ? check.redirectToDashboard(location, user_info, '/dashboard', '/admin') : ''        
+        
+        auth.signin.status ? check.redirectToDashboard(router, user_info) : ''        
 
    }, [auth.signin.status])
 
@@ -150,7 +152,9 @@ export const Signin=({userInfo})=>{
                 </InputWrapper>
 
                 <SubTitle bottomMargin="5px">
-                    <AuthLink href="/reset-password-req"> Reset Password?</AuthLink>
+                    <Link  href="/reset-password-req" passHref>
+                        <AuthLink> Reset Password?</AuthLink>
+                    </Link>
                 </SubTitle>
 
                 {auth.signin.isLoading ? <Spinner /> : ""}
@@ -167,7 +171,9 @@ export const Signin=({userInfo})=>{
                 <SubTitle bottomMargin="0">
                     Don't have an Account?
                     {" "}
-                    <AuthLink href="/signup">Sign Up</AuthLink>
+                    <Link  href="/signup" passHref>
+                        <AuthLink>Sign Up</AuthLink>
+                    </Link>
                 </SubTitle>
 
             </Form>

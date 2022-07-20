@@ -2,7 +2,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import styled from 'styled-components'
 
 export default function Pop({msg, setMsg, status}) {
-    console.log(msg)
 
   return (
     <PopStyle>

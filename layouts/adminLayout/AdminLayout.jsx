@@ -3,7 +3,6 @@ import Header_ from '../../components/admin/header/Header';
 import styled from 'styled-components';
 import SideMenu_ from '../../components/admin/sideMenu/SideMenu';
 import { ScrollBar } from '../../styles/globalStyle';
-ScrollBar
 
 
 const Header = styled.div`

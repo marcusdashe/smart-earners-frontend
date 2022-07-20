@@ -87,7 +87,7 @@ export const ResetPassword=()=>{
             type: Cookies.get('type')
         };
         
-        resetPass.status ? check.redirectToDashboard(location, user_info, '/dashboard', '/admin') : ''  
+        resetPass.status ? check.redirectToDashboard(router, user_info) : ''  
 
    }, [resetPass.status])
  

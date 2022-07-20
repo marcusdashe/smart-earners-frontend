@@ -7,7 +7,8 @@ import PaidIcon from '@mui/icons-material/Paid';
 import PersonIcon from '@mui/icons-material/Person';
 import SsidChartIcon from '@mui/icons-material/SsidChart';
 import SettingsIcon from '@mui/icons-material/Settings';
-import {useRouter} from 'next/router'
+import {useRouter} from 'next/router';
+import Link from 'next/link'
 
 import {
   SideMenu,
@@ -74,8 +75,8 @@ const router = useRouter()
         {
           navLinks.map((link, i)=>{
             return (
-              <div key={i}>
-                  <IconWrapper active={link.url === router.asPath} href={link.url} >
+              <Link key={i} href={link.url} passHref>
+                  <IconWrapper active={link.url === router.asPath}>
 
                       <div title={link.link} className={link.url === router.asPath ? 'side-menu-active-link' : ''}>
                           {link.icon}
@@ -86,7 +87,7 @@ const router = useRouter()
                       </div>
                       
                   </IconWrapper>
-              </div>
+              </Link>
             )
           })
         }

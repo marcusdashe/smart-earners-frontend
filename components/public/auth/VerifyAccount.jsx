@@ -88,7 +88,7 @@ export default function VerifyAccount() {
       type: Cookies.get('type')
     };
 
-    success ? check.redirectToDashboard(location, user_info, '/dashboard', '/admin') : '' ;
+    success ? check.redirectToDashboard(router, user_info) : '' ;
   }, )
 
 

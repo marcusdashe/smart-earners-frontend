@@ -3,18 +3,19 @@ import { NavBtn } from './styles'
 import {useDispatch} from 'react-redux'
 import {useRouter} from 'next/router'
 import { logout } from '../../redux/auth/auth.js'
+import Link from 'next/link'
 
 
-export default function NavAuthBtn({ userInfo, stick, shrink, portriat}) {
+export default function NavAuthBtn({ userInfo, stick, shrink, setShowMenu, portriat}) {
     const dispatch = useDispatch();
     const router = useRouter();
     const path = router.pathname;
     
     const handleLogout =()=>{
         dispatch(logout());
-
+        setShowMenu(false)
         setTimeout(()=>{
-            location.href = '/';
+            router.push('/');
         }, 500)
     }
     return (
@@ -28,20 +29,24 @@ export default function NavAuthBtn({ userInfo, stick, shrink, portriat}) {
                         if(userInfo.type ==='admin'){
                             return (
                                 <>
-                                    <a href='/admin' className='nav-btn admin'>Admin</a>
+                                    <Link href='/admin' passHref>
+                                        <a onClick={()=>setShowMenu(false)} className='nav-btn admin'>Admin</a>
+                                    </Link>
                                     <a onClick={handleLogout} className='nav-btn logout' >Logout</a>
                                 </>
                             )
                         }else{
                             return (
-                                <a href='/' onClick={handleLogout} className='nav-btn logout' >Logout</a>
+                                <a onClick={handleLogout} className='nav-btn logout' >Logout</a>
                             )
                         }
                     }
                     else if(path.includes('admin')){
                         return (
                             <>
-                                 <a href='/dashboard' className='nav-btn dashboard'>Dashboard</a>
+                                 <Link  href='/dashboard'  passHref>
+                                    <a onClick={()=>setShowMenu(false)} className='nav-btn dashboard'>Dashboard</a>
+                                 </Link>
                                 <a onClick={handleLogout} className='nav-btn logout' >Logout</a>
                             </>
                         )
@@ -51,15 +56,21 @@ export default function NavAuthBtn({ userInfo, stick, shrink, portriat}) {
                         if(userInfo.type ==='admin'){
                             return (
                                 <>
-                                    <a href='/dashboard' className='nav-btn dashboard'>Dashboard</a>
-                                    <a href='/admin' className='nav-btn admin'>Admin</a>
+                                    <Link  href='/dashboard'  passHref>
+                                        <a onClick={()=>setShowMenu(false)} className='nav-btn dashboard'>Dashboard</a>
+                                    </Link>
+                                    <Link href='/admin' passHref>
+                                        <a onClick={()=>setShowMenu(false)} className='nav-btn admin'>Admin</a>
+                                    </Link>
                                     <a onClick={handleLogout} className='nav-btn logout' >Logout</a>
                                 </>
                             )
                         }else{
                             return (
                                 <>
-                                    <a href='/dashboard' className='nav-btn dashboard'>Dashboard</a>
+                                    <Link  href='/dashboard'  passHref>
+                                        <a onClick={()=>setShowMenu(false)} className='nav-btn dashboard'>Dashboard</a>
+                                    </Link>
                                     <a onClick={handleLogout} className='nav-btn logout' >Logout</a>
                                 </>
                             )
@@ -70,8 +81,14 @@ export default function NavAuthBtn({ userInfo, stick, shrink, portriat}) {
             ):
             (
                 <>
-                    <a href='/signup' className='nav-btn signup'>Sign Up</a>
-                    <a href='/signin' className='nav-btn signin'>Sign in</a>
+                    <Link href='/signup' assHref>
+                        <a onClick={()=>setShowMenu(false)} className='nav-btn signup'>Sign Up</a>
+                    </Link>
+                    <Link href='/signin' assHref>
+                        <a onClick={()=>setShowMenu(false)} className='nav-btn signin'>Sign in</a>
+                    </Link>
+                    
+                    
                 </>
             )
         }
