@@ -1,14 +1,13 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { BACKEND_BASE_URL } from '../../utils/config';
 
 
 export const getSelectedTestimonials= createAsyncThunk(
     'testimonial/getSelectedTestimonials',
     async(data, {rejectWithValue})=>{
         try{
-            const res = await axios.get(`${BACKEND_BASE_URL}/testimonials/get-selected`)
+            const res = await axios.get(`/testimonials/get-selected`)
             return res.data
         }
         catch(err){
@@ -26,7 +25,7 @@ export const getAllTestimonials= createAsyncThunk(
     'testimonial/getAllTestimonials',
     async(data, {rejectWithValue})=>{
         try{
-            const res = await axios.get(`${BACKEND_BASE_URL}/testimonials/get-all`)
+            const res = await axios.get(`/testimonials/get-all`)
             return res.data
         }
         catch(err){
@@ -44,7 +43,7 @@ export const getOneTestimonial= createAsyncThunk(
     'testimonial/getOneTestimonial',
     async(id, {rejectWithValue})=>{
         try{
-            const res = await axios.get(`${BACKEND_BASE_URL}/testimonials/get${id}`)
+            const res = await axios.get(`/testimonials/get${id}`)
             return res.data
         }
         catch(err){
@@ -62,7 +61,7 @@ export const remove= createAsyncThunk(
     'testimonial/remove',
     async(id, {rejectWithValue})=>{
         try{
-            const res = await axios.put(`${BACKEND_BASE_URL}/testimonials/restrict/${id}`, {
+            const res = await axios.put(`/testimonials/restrict/${id}`, {
                 header: {
                     "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                 }

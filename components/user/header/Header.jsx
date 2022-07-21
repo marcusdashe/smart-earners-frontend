@@ -22,6 +22,7 @@ const logo = '/onboadinglogo.png';
 
 
 export default function Header_({userInfo}) {
+
     const [stick, setStick] = useState(false)
     const router = useRouter()
     const [showMenu, setShowMenu] = useState(false)
@@ -29,11 +30,9 @@ export default function Header_({userInfo}) {
     const [showNotif, setShowNotif] = useState(false);
     const [showDropDown, setDropDown] = useState(false)
 
-
-
     useEffect(()=>{
         setIsMobile(mobileAndTabletCheck(window))
-
+        
         window.onscroll=(e)=>{
             window.pageYOffset >= 120 ? setStick(true) : setStick(false)
         }
@@ -166,7 +165,7 @@ export default function Header_({userInfo}) {
 
                         {/* nav link btn */}
                         <div className='col3'>
-                            <NavAuthBtn stick={true} setShowMenu={false} userInfo={userInfo}/>
+                            <NavAuthBtn stick={true} setShowMenu={setShowMenu} userInfo={userInfo}/>
                         </div>
 
                         <Notifications showNotif={showNotif} alert={true} setDropDown={setDropDown} showDropDown={showDropDown} setShowNotif={setShowNotif}/>
@@ -191,7 +190,7 @@ export default function Header_({userInfo}) {
                             </Link>
                         </div>
 
-                        {/* current page name */}
+                        {/* auth btn */}
                         <div className='col3'>
                             <NavAuthBtn stick={false} setShowMenu={setShowMenu} userInfo={userInfo}/>
                         </div>

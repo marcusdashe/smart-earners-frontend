@@ -82,10 +82,10 @@ export default function NavAuthBtn({ userInfo, stick, shrink, setShowMenu, portr
             (
                 <>
                     <Link href='/signup' assHref>
-                        <a onClick={()=>setShowMenu(false)} className='nav-btn signup'>Sign Up</a>
+                        <a onClick={()=>setShowMenu(false)} className={router.asPath === '/signup' ? 'nav-btn signup active' : 'nav-btn signup'}>Sign Up</a>
                     </Link>
                     <Link href='/signin' assHref>
-                        <a onClick={()=>setShowMenu(false)} className='nav-btn signin'>Sign in</a>
+                        <a onClick={()=>setShowMenu(false)} className={router.asPath === '/signin' ? 'nav-btn signup active' : 'nav-btn signup'}>Sign in</a>
                     </Link>
                     
                     

@@ -1,6 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BACKEND_BASE_URL } from '../../utils/config';
 
 
 // logout in action
@@ -8,7 +7,7 @@ export const getPlans= createAsyncThunk(
     'config/getPlans',
     async(data, {rejectWithValue})=>{
         try{
-            const res = await axios.get(`${BACKEND_BASE_URL}/investment/get-all-plans`)
+            const res = await axios.get(`/investment/get-all-plans`)
             return res.data
             
         }

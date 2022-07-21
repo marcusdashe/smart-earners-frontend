@@ -14,7 +14,7 @@ import {
 } from './styles'
 
 
-export default function SideMenu({navLinks, shrink, userInfo, showMenu, setShowMenu}) {
+export default function SideMenu({navLinks, userInfo, showMenu, setShowMenu}) {
     const router = useRouter()
     
     return (

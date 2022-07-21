@@ -1,14 +1,12 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BACKEND_BASE_URL } from '../../utils/config';
-
 
 // logout in action
 export const getConfig= createAsyncThunk(
     'config/getConfig',
     async(data, {rejectWithValue})=>{
         try{
-            const res = await axios.get(`${BACKEND_BASE_URL}/config/get`)
+            const res = await axios.get(`/config/get`)
             return res.data
         }
         catch(err){

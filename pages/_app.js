@@ -7,13 +7,13 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Head from 'next/head'
 import { store } from '../redux/store';
-axios.defaults.withCredentials = true;
 import {resolveApi} from '../utils/resolveApi'
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
 import Preloader from '../loaders/Preloader';
 import useToggle from '../hooks/toggles/toggles';
 import Cookies from 'js-cookie';
+axios.defaults.withCredentials = true;
 
 function MyApp({ Component, pageProps }) {
     

@@ -5,7 +5,6 @@ import { RiCloseLine} from 'react-icons/ri'
 import { useSnap } from '@mozeyinedu/hooks-lab'; 
 import { resetPasswordRequest } from "../../../redux/auth/auth";
 import Spinner from "../../../loaders/Spinner";
-import { FRONTEND_BASE_URL } from "../../../utils/config";
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 
@@ -78,7 +77,7 @@ export const ResetPasswordRequest=()=>{
         // get the returned data, check if token is defined (this means that verifyEmail option is turned off and the user can reset his/her password without email verification)
 
         if(resetPassReq.token){
-            router.push(`${FRONTEND_BASE_URL}/reset-password/?token=${resetPassReq.token}`)
+            router.push(`/reset-password/?token=${resetPassReq.token}`)
         }
 
    }, [resetPassReq.status])

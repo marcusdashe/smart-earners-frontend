@@ -79,8 +79,6 @@ const DashboardHeader = () => {
             
             {/* feedback msg */}
            <Pop msg={msg} setMsg={setMsg} status={sendVerifyLink.status}/>
-
-           
             
         </StyledDashboardHeader>
     )
@@ -126,11 +124,17 @@ const StyledDashboardHeader = styled.div`
         border: 2px solid #e1e10b;
     }
 
+    .name{
+        width: 100%;
+        text-align: center;
+        
+    }
    .user{
-        width: 10rem;
+        min-width: 10rem;
         height: 10rem;
         position: absolute;
         top: 50px;
+        color: var(--major-color-purest);
         left: 30px;
         display: flex;
         justify-content: center;

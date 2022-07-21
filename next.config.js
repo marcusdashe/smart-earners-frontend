@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -8,7 +10,18 @@ const nextConfig = {
     eslint: {
       ignoreDuringBuilds: true
     }
+  },
+  
+  async rewrites(){
+    return [
+      {
+        source: "/:slug*",
+        // destination: "http://localhost:5000/:slug*",
+        destination: "https://seal-app-uuoo5.ondigitalocean.app/:slug*"
+      }
+    ]
   }
+   
 }
 
 
