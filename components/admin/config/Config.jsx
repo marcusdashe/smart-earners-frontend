@@ -43,7 +43,7 @@ export default function Config({userInfo}) {
 
       !config.status ? 
       (
-          <div style={{textAlign: 'center'}}>No Data Currently Available</div>
+          <div style={{textAlign: 'center'}}>No Data Currently Available.</div>
       ):
       (
         <AdminWrapper>
