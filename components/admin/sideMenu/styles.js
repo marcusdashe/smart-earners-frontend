@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ScrollBar } from '../../../styles/globalStyle';
 
 const SideMenu = styled.div`
   width: 100%;
@@ -6,18 +7,12 @@ const SideMenu = styled.div`
 `
 
 const IconBar = styled.div`
-  min-width: 120px;
+  min-width: 90%;
   height: 100%;
-  position: absolute;
-  box-shadow: 2px 2px 5px #777;
-  left: 0;
   display: flex;
   padding: 5px;
-  // align-items: center;
   justify-content: center;
   flex-direction column;
-  top: 0;
-  bottom: 0;
 `
 
 const IconWrapper = styled.a`
@@ -30,25 +25,12 @@ const IconWrapper = styled.a`
   display: flex;
   border: ${({active})=>active ? '1px solid var(--bright-color)' : '1px solid var(--major-color-30A)'};
   align-items: center;
-  // justify-content: center;
-`
-
-const InfoBar = styled.div`
-  width: calc(100% - 50px);
-  height: 100%;
-  border: 1px solid blue;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
 `
 
 export {
   SideMenu,
   IconBar,
   IconWrapper,
-  InfoBar
+
 }

@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link'
 import NavAuthBtn from '../../navAuthBtn/NavAuthBtn';
 import {useState} from 'react'
@@ -24,15 +23,6 @@ export default function Header_({userInfo}) {
                  <Link  href='/' passHref>
                     <a><Image width='100' alt='logo' height='100' src={logo}/></a>
                  </Link>
-            </div>
-
-            {/* home icon */}
-            <div className="col1 toggle-menu">
-                <Link  href='/' passHref>
-                  <a style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                      <HomeIcon />
-                  </a>
-                </Link>
             </div>
 
              {/* nav link btn */}

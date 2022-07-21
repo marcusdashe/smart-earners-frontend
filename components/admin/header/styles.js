@@ -15,9 +15,14 @@ const Header = styled.div`
     .logo {
         width: 60px;
         height: 60px;
+        margin-left: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @media (min-width: 980px){
+            margin-left: 160px;
+        }
     }
 
     .top-nav-bar{

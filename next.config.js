@@ -5,9 +5,9 @@ const nextConfig = {
   compiler: {
     // enables the styled-components SWC transform
     styledComponents: true,
-    // eslint: {
-    //   ignoreDuringBuilds: true
-    // }
+    eslint: {
+      ignoreDuringBuilds: true
+    }
   }
 }
 

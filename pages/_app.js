@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps }) {
     type: ''
   });
 
-  // console.log(userInfo)
   
   const handleChangeStart =(url)=> {
       NProgress.start()
@@ -63,13 +62,11 @@ function MyApp({ Component, pageProps }) {
     // get user info from the cookies
 
     setUserInfo({
-      ...userInfo,
       refreshtoken: Cookies.get('refreshtoken'),
       accesstoken: Cookies.get('accesstoken'),
       type: Cookies.get('type')
     })
-
-    
+   
 
   }, [Cookies.get('refreshtoken')])
   

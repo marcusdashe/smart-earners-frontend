@@ -6,6 +6,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PaidIcon from '@mui/icons-material/Paid';
 import PersonIcon from '@mui/icons-material/Person';
 import SsidChartIcon from '@mui/icons-material/SsidChart';
+import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {useRouter} from 'next/router';
 import Link from 'next/link'
@@ -25,6 +26,11 @@ const router = useRouter()
         link: 'Analysis',
         url: '/admin',
         icon: <SsidChartIcon />
+    },
+    {
+      link: 'Config',
+      url: '/admin/web-config',
+      icon: <SettingsIcon />
     },
     {
       link: 'Users',
@@ -62,11 +68,10 @@ const router = useRouter()
         icon: <PeopleAltIcon />
     },
     {
-      link: 'Config',
-      url: '/admin/web-config',
-      icon: <SettingsIcon />
+      link: 'Home',
+      url: '/',
+      icon: <HomeIcon />
     },
-    
 ]
 
   return (
@@ -78,14 +83,14 @@ const router = useRouter()
               <Link key={i} href={link.url} passHref>
                   <IconWrapper active={link.url === router.asPath}>
 
+                      <div style={{marginRight: '15px'}} title={link.link} className={link.url === router.asPath ? 'side-menu-active-link' : ''}>
+                          {link.link}
+                      </div>
+
                       <div title={link.link} className={link.url === router.asPath ? 'side-menu-active-link' : ''}>
                           {link.icon}
                       </div>
 
-                      <div style={{marginLeft: '6px'}} title={link.link} className={link.url === router.asPath ? 'side-menu-active-link' : ''}>
-                          {link.link}
-                      </div>
-                      
                   </IconWrapper>
               </Link>
             )
