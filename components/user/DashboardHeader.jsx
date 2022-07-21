@@ -34,7 +34,7 @@ const DashboardHeader = () => {
         if(sendVerifyLink.msg){
             setLoading(false)
         }
-    }, [])
+    })
 
     useEffect(()=>{
         if(sendVerifyLink.msg){

@@ -20,7 +20,7 @@ export default function Index({userInfo}) {
     setTimeout(()=>{
       user.isLoading ? setLoading(true) : setLoading(false)
     }, 1000)
-  }, [])
+  })
 
 
 

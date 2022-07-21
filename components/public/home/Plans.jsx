@@ -35,7 +35,7 @@ const Plans = ({userInfo}) => {
   
     useEffect(()=>{
         dispatch(getPlans())
-    }, [])
+    })
 
   return (
     <ServiceSectionWrapper bg=''>
