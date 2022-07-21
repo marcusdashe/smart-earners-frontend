@@ -4,7 +4,7 @@ import Loader_ from "../loader/Loader";
 import { getConfig} from "../../../redux/admin/config";
 import WithdrawalForm from './WithdrawalForm'
 import InvestmentForm from './InvestmentForm'
-import GeneralConfigForm from './GeneralConfigForm'
+// import GeneralConfigForm from './GeneralConfigForm'
 
 import {
   AdminWrapper,
@@ -47,7 +47,7 @@ export default function Config({userInfo}) {
       ):
       (
         <AdminWrapper>
-          <GeneralConfigForm config={config}/>
+          {/* <GeneralConfigForm config={config}/> */}
           <WithdrawalForm config={config}/>
           <InvestmentForm config={config}/>
         </AdminWrapper>
