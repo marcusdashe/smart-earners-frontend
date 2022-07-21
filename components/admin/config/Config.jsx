@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import Loader_ from "../loader/Loader";
 import { getConfig} from "../../../redux/admin/config";
-import WithdrawalForm from './WithdrawalForm.jsx'
-import InvestmentForm from './InvestmentForm.jsx'
-import GeneralConfigForm from './GeneralConfigForm.jsx'
+import WithdrawalForm from './WithdrawalForm'
+import InvestmentForm from './InvestmentForm'
+import GeneralConfigForm from './GeneralConfigForm'
 
 import {
   AdminWrapper,

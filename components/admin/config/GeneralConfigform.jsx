@@ -84,7 +84,7 @@ export default function GeneralConfigForm({config}) {
 
 
                 <InputWrapper title="Number of time in seconds unverifed users are allowed to stay in the database. 0 means they stay forever">
-                    <Label htmlFor="">Unverified Users' Lifespan: <span className="item">{config.data.unverifyUserLifeSpan}</span></Label>
+                    <Label htmlFor="">Unverified User&apos;s Lifespan: <span className="item">{config.data.unverifyUserLifeSpan}</span></Label>
                     <Input
                     disabled={!edit}
                     type="number"

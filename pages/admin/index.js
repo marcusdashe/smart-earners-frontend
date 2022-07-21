@@ -1,4 +1,4 @@
-import Index from "../../components/admin/home"
+import Index from "../../components/admin/home/Index"
 
 export default function index({}) {
   return <Index />
