@@ -14,14 +14,14 @@ const SinglePlan = ({data}) => {
             </span>
 
             <span className="bottom">
-                  <aside className="amount">
-                      <p>Amount</p>
-                      <p>{data.amount} {data.currency}</p>
-                  </aside>
-                  <aside className="returns">
-                      <p style={{textAlign: 'right'}}>Returns</p>
-                      <p style={{textAlign: 'right'}}>{resolveInvestmentLifespan(data.returnPercentage, data.lifespan)}</p>
-                  </aside>
+                <aside className="amount">
+                    <p>Amount</p>
+                    <p style={{fontSize: '.9rem', fontWeight: 'bold'}}>{data.amount} {data.currency}</p>
+                </aside>
+                <aside style={{borderLeft:'1px solid #ccc',paddingLeft: '5px'}} className="returns">
+                    <p>Returns</p>
+                    <p style={{fontSize: '.9rem', fontWeight: 'bold'}}>{resolveInvestmentLifespan(data.returnPercentage, data.lifespan)}</p>
+                </aside>
             </span>
             <button onClick={()=>router.push('/dashboard/investment')}>Invest Now</button>
         </section>
@@ -31,7 +31,8 @@ const SinglePlan = ({data}) => {
 
 
 const StyledSinglePlan = styled.div`
-        width: 320px;
+        width: 300px;
+        justify-self: center;
         height: fit-content;
         background-image: linear-gradient(to bottom, #a4b0b5e0 60%, #c7edff);
         color: var(--major-color-purest);

@@ -127,7 +127,7 @@ const Title = styled.div`
 `
 
 const Header = styled.div`
-    padding: 10px;
+    height: 30px;
     margin: 0 10px;
     display: flex;
     border-bottom: 2px solid var(--major-color-purest);

@@ -5,12 +5,14 @@ import {useState} from 'react'
 import styled from 'styled-components'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-
+import {useRouter} from 'next/router'
+import { fontSize } from '@mui/system';
 const logo = '/onboadinglogo.png';
 
 
 export default function Header_({userInfo, showMenuLargeScreen, setShowMenuLargeScreen, setShowMenuSmallScreen, showMenuSmallScreen}) {
     const [showMenu, setShowMenu] = useState(false);
+    const router = useRouter()
     
 
     return (
@@ -37,6 +39,30 @@ export default function Header_({userInfo, showMenuLargeScreen, setShowMenuLarge
                         <a><Image width='100' height='65' alt='logo' src={logo}/></a>
                     </Link>
                 </div>
+
+                {function(){
+                    if(router.asPath == '/admin'){
+                        return <div style={{fontSize: '.7rem'}}>Config</div>
+                    }
+                    if(router.asPath.includes('/admin/users')){
+                        return <div style={{fontSize: '.7rem'}}>Users</div>
+                    }
+                    if(router.asPath.includes('/admin/deposit')){
+                        return <div style={{fontSize: '.7rem'}}>Deposit</div>
+                    }
+                    if(router.asPath.includes('/admin/investment')){
+                        return <div style={{fontSize: '.7rem'}}>Investment</div>
+                    }
+                    if(router.asPath.includes('/admin/withdrawals')){
+                        return <div style={{fontSize: '.7rem'}}>Withdrawals</div>
+                    }
+                    if(router.asPath.includes('/admin/transfer')){
+                        return <div style={{fontSize: '.7rem'}}>Transfer</div>
+                    }
+                    if(router.asPath.includes('/admin/referrals')){
+                        return <div style={{fontSize: '.7rem'}}>Referrals</div>
+                    }
+                }()}
 
                 {/* nav link btn */}
                 <div className='col3'>

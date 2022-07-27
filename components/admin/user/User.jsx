@@ -1,9 +1,19 @@
 // import { getUser } from "../../../redux/auth/auth";
 import { useState, useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
-import { AdminWrapper } from "./styles";
 import Loader_ from "../loader/Loader";
-
+import GoBackBtn from "../../GoBackBtn";
+import {
+  AdminWrapper,
+  Form,
+  InputWrapper,
+  Container,
+  Input,
+  Header,
+  Title,
+  Label
+} from "../styles";
+import { useRouter } from "next/router";
 
 
 export default function User({userInfo}) {
@@ -27,26 +37,35 @@ export default function User({userInfo}) {
   }
 
   return (
+
+    <>
+      <Header>
+          <GoBackBtn />
+      </Header>
+      {
+        //check if user exist
+
+        isLoading ? 
+        (
+          // set loading div
+          <Loader_ />
+        ) :
+        (
+          //check if empty
+
+          !user.data ? 
+          (
+              <div style={{textAlign: 'center'}}>{user.msg || 'No data currently available'}</div>
+          ):
+          (
+            <AdminWrapper>
+              display data here
+            </AdminWrapper>
+          )
+        )    
+      }
+    </>
     
-    //check if user exist
-
-    isLoading ? 
-    (
-      // set loading div
-      <Loader_ />
-    ) :
-    (
-      //check if empty
-
-      !user.data ? 
-      (
-          <div style={{textAlign: 'center'}}>{user.msg || 'No data currently available'}</div>
-      ):
-      (
-        <AdminWrapper>
-          display data here
-        </AdminWrapper>
-      )
-    )    
+    
   )
 }

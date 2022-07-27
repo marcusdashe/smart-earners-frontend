@@ -5,7 +5,7 @@ export default function signin({userInfo}) {
   return <Signin userInfo={userInfo}/>
 }
 
-// handle redirect if user sign up,
+// handle redirect if user sign in,
 export const getServerSideProps =(context)=>{
   const cookies = context.req.cookies;
   const refreshtoken = cookies.refreshtoken;

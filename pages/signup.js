@@ -5,18 +5,17 @@ export default function signup({userInfo}) {
   return <Signup userInfo={userInfo}/>
 }
 
-// handle redirect if user sign up,
-// get user info from cookie
+// handle redirect if user sign in,
 export const getServerSideProps =(context)=>{
   const cookies = context.req.cookies;
-  const accesstoken = cookies.accesstoken;
+  const refreshtoken = cookies.refreshtoken;
   const type = cookies.type;
 
   const handlePath=()=>{
-    if(accesstoken && type === 'admin'){
+    if(refreshtoken && type === 'admin'){
       return '/admin'
     }
-    else if(accesstoken && type !== 'admin'){
+    else if(refreshtoken && type !== 'admin'){
       return '/dashboard'
     }else{
       
@@ -24,7 +23,7 @@ export const getServerSideProps =(context)=>{
   }
   const path = handlePath();
 
-  if(accesstoken){
+  if(refreshtoken){
     return {
       redirect: {
         destination: path,

@@ -28,25 +28,30 @@ export default function Deposit({userInfo}) {
 
   return (
     
-    //check if deposit exist
+    <>
+    <div></div>
+      {
+        //check if deposit exist
+        isLoading ? 
+        (
+          // set loading div
+          <Loader_ />
+        ) :
+        (
+          //check if empty
 
-    isLoading ? 
-    (
-      // set loading div
-      <Loader_ />
-    ) :
-    (
-      //check if empty
-
-      !deposit.data ? 
-      (
-          <div style={{textAlign: 'center'}}>{deposit.msg || 'No data currently available'}</div>
-      ):
-      (
-        <AdminWrapper>
-          display data here
-        </AdminWrapper>
-      )
-    )    
-  )
+          !deposit.data ? 
+          (
+              <div style={{textAlign: 'center'}}>No data currently available</div>
+          ):
+          (
+            <AdminWrapper>
+              display data here
+            </AdminWrapper>
+          )
+        )
+      }
+    </>
+    
+  )    
 }

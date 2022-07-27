@@ -20,25 +20,21 @@
 
     // returns seconds
     if(sec < 60){
-      console.log(lifeSpanInSecond())
       return lifeSpanInSecond()
     }
 
     // returns minutes
     if(sec >= 60 && sec < 60 * 60){
-      console.log(lifeSpanInMinute())
       return lifeSpanInMinute()
     }
 
     // returns hours
     if(sec >= 60 * 60 && sec < 60 * 60 * 24){
-      console.log(lifeSpanInDay())
       return lifeSpanInHour()
     }
 
     // returns days
     if(sec >= 60 * 60 * 24){
-      console.log(lifeSpanInDay())
       return lifeSpanInDay()
     }
  }

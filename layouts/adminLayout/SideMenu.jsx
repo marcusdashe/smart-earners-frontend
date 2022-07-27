@@ -20,13 +20,8 @@ const router = useRouter()
 
   const navLinks =[
     {
-        link: 'Analysis',
-        url: '/admin',
-        icon: <SsidChartIcon />
-    },
-    {
       link: 'Config',
-      url: '/admin/web-config',
+      url: '/admin',
       icon: <SettingsIcon />
     },
     {
@@ -53,11 +48,6 @@ const router = useRouter()
         link: 'Transfer',
         url: '/admin/transfer',
         icon: <CurrencyExchangeIcon />
-    },
-    {
-        link: 'Transactions',
-        url: '/admin/transactions',
-        icon: <PaidIcon />
     },
     {
         link: 'Referral',

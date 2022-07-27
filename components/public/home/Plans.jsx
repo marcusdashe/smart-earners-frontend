@@ -60,8 +60,8 @@ const Plans = ({userInfo}) => {
                                 className='swiper'
                                 modules={[Navigation, Pagination, Scrollbar, Autoplay, A11y]}
                                 spaceBetween={10}
-                                // autoplay = { {delay: 5000}}
-                                // loop
+                                autoplay = { {delay: 5000}}
+                                loop
                                 // scrollbar={{draggable: true}}
                                 pagination = {{ clickable: true}}
                                 slidesPerView={3}

@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk, current} from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BACKEND_BASE_URL } from '../../utils/config';
 import Cookies from 'js-cookie'
@@ -33,12 +33,10 @@ export const handleAdd= createAsyncThunk(
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
                 });
-                console.log(res.data)
                 return res.data;
             }   
         }
         catch(err){
-            console.log(err)
             if(err.response.data){
                 return rejectWithValue({status: false, msg: err.response.data.msg});
             }
@@ -73,8 +71,7 @@ export const handleUpdate= createAsyncThunk(
     }
 )
 
-
-// logout in action
+// delete plan
 export const handleDelete= createAsyncThunk(
     'config/handleDelete',
     async(id, {rejectWithValue})=>{
@@ -107,15 +104,14 @@ const initialState = {
     plans: { isLoading: false, status: false, msg: '', data: []},
     add: { isLoading: false, status: false, msg: ''},
     update: { isLoading: false, status: false, msg: ''},
-    delete: { isLoading: false, status: false, msg: ''},
-    // authorize: { status: false, type: 'none', msg: '' }
+    deletePlan: { isLoading: false, status: false, msg: ''},
 }
 
 export const plansReducer = createSlice({
     name: 'plans',
     initialState,
     extraReducers: {
-        // handleSign up
+        // get plans
         [getPlans.pending]: (state)=>{
             state.plans.isLoading = true;
         },
@@ -145,6 +141,7 @@ export const plansReducer = createSlice({
             state.add.isLoading = false;
             state.add.status = payload.status;
             state.add.msg = payload.msg;
+            state.plans.data.push(payload.data)
         },
         [handleAdd.rejected]: (state, {payload})=>{
             state.add.isLoading = false;
@@ -166,7 +163,18 @@ export const plansReducer = createSlice({
             state.add.isLoading = false;
             state.add.status = payload.status;
             state.add.msg = payload.msg;
+            //get the returned data and replace the existing one
+            const currentState = current(state.plans.data);
+            // find the id index and replace the data in payload
+            const index = currentState.findIndex(data=>{
+                return payload.data._id === data._id
+            })
+            
+            state.plans.data[index] = payload.data;
+
         },
+
+        
         [handleUpdate.rejected]: (state, {payload})=>{
             state.add.isLoading = false;
             if(payload){
@@ -181,22 +189,28 @@ export const plansReducer = createSlice({
 
         // delete plan
         [handleDelete.pending]: (state)=>{
-            state.delete.isLoading = true;
+            state.deletePlan.isLoading = true;
         },
         [handleDelete.fulfilled]: (state, {payload})=>{
-            state.delete.isLoading = false;
-            state.delete.status = payload.status;
-            state.delete.msg = payload.msg;
+            state.deletePlan.isLoading = false;
+            state.deletePlan.status = payload.status;
+            state.deletePlan.msg = payload.msg;
+            const planState = current(state).plans.data
+            const newPlans = planState.filter(plan=>{
+                return plan._id !== payload.data._id
+            })
+            state.plans.data = newPlans;
+
         },
         [handleDelete.rejected]: (state, {payload})=>{
-            state.delete.isLoading = false;
+            state.deletePlan.isLoading = false;
             if(payload){
-                state.delete.status = payload.status;
-                state.delete.msg = payload.msg;
+                state.deletePlan.status = payload.status;
+                state.deletePlan.msg = payload.msg;
             }else{
                 // to get rid of next js server error
-                state.delete.status = false;
-                state.delete.msg = 'Error occured';
+                state.deletePlan.status = false;
+                state.deletePlan.msg = 'Error occured';
             }
         }, 
     }

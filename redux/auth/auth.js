@@ -120,7 +120,7 @@ export const verifyAccount= createAsyncThunk(
     }
 )
 
-// get user
+// get profile
 export const getUser= createAsyncThunk(
     'auth/getUser',
     async(data, {rejectWithValue})=>{
@@ -145,6 +145,111 @@ export const getUser= createAsyncThunk(
         }
     }
 )
+
+// get profile
+export const getUsers= createAsyncThunk(
+    'auth/getUser',
+    async(data, {rejectWithValue})=>{
+        try{
+            if(Cookies.get('accesstoken')){
+
+                const res = await axios.get(`${BACKEND_BASE_URL}/auth/get-all-users`, {
+                    headers: {
+                        "Authorization": `Bearer ${Cookies.get('accesstoken')}`
+                    }
+                });
+                return res.data;
+            }            
+        }
+        catch(err){
+            if(err.response.data){
+                return rejectWithValue({status: false, msg: err.response.data.msg});
+            }
+            else{
+                return rejectWithValue({status: false, msg: err.message, data: ''});
+            }
+        }
+    }
+)
+
+// delete user
+export const deleteUser = createAsyncThunk(
+    'auth/del',
+    async(id, {rejectWithValue})=>{
+        try{
+            if(Cookies.get('accesstoken')){
+
+                const res = await axios.delete(`${BACKEND_BASE_URL}/auth/delete-account/${id}`, {
+                    headers: {
+                        "Authorization": `Bearer ${Cookies.get('accesstoken')}`
+                    }
+                });
+                return res.data;
+            }            
+        }
+        catch(err){
+            if(err.response.data){
+                return rejectWithValue({status: false, msg: err.response.data.msg});
+            }
+            else{
+                return rejectWithValue({status: false, msg: err.message, data: ''});
+            }
+        }
+    }
+)
+
+// block user
+export const blockUser= createAsyncThunk(
+    'auth/block',
+    async(id, {rejectWithValue})=>{
+        try{
+            if(Cookies.get('accesstoken')){
+
+                const res = await axios.put(`${BACKEND_BASE_URL}/auth/block-user/${id}`, {
+                    headers: {
+                        "Authorization": `Bearer ${Cookies.get('accesstoken')}`
+                    }
+                });
+                return res.data;
+            }            
+        }
+        catch(err){
+            if(err.response.data){
+                return rejectWithValue({status: false, msg: err.response.data.msg});
+            }
+            else{
+                return rejectWithValue({status: false, msg: err.message, data: ''});
+            }
+        }
+    }
+)
+
+// unblock user
+export const unBlockUser= createAsyncThunk(
+    'auth/unblock',
+    async(id, {rejectWithValue})=>{
+        try{
+            if(Cookies.get('accesstoken')){
+
+                const res = await axios.put(`${BACKEND_BASE_URL}/auth/block-user/${id}`, {
+                    headers: {
+                        "Authorization": `Bearer ${Cookies.get('accesstoken')}`
+                    }
+                });
+                return res.data;
+            }            
+        }
+        catch(err){
+            if(err.response.data){
+                return rejectWithValue({status: false, msg: err.response.data.msg});
+            }
+            else{
+                return rejectWithValue({status: false, msg: err.message, data: ''});
+            }
+        }
+    }
+)
+
 
 // resend verification link
 export const sendVerificationLink= createAsyncThunk(
@@ -177,8 +282,12 @@ const initialState = {
     resetPassReq: { isLoading: false, status: false, msg: '', token: '' },
     resetPass: { isLoading: false, status: false, msg: '' },
     verify: { isLoading: false, status: false, msg: '' },
-    user: { isLoading: false, status: false, msg: '', data: ''},
     sendVerifyLink: { isLoading: false, status: false, msg: ''},
+    user: { isLoading: false, status: false, msg: '', data: ''},
+    users: { isLoading: false, status: false, msg: '', data: []},
+    block: { isLoading: false, status: false, msg: '' },
+    unblock: { isLoading: false, status: false, msg: '' },
+    del: { isLoading: false, status: false, msg: '' },
 }
 
 export const authReducer = createSlice({
@@ -187,7 +296,6 @@ export const authReducer = createSlice({
     extraReducers: {
 
         // handleSign up
-
         [signup.pending]: (state)=>{
             state.signup.isLoading = true;
         },
@@ -322,6 +430,29 @@ export const authReducer = createSlice({
             }
         },
 
+        // get all users
+        [getUsers.pending]: (state)=>{
+            state.users.isLoading = true;
+        },
+        [getUsers.fulfilled]: (state, {payload})=>{
+            state.users.isLoading = false;
+            state.users.status = payload.status;
+            state.users.msg = payload.msg;
+            state.users.data = payload.data;
+        },
+        [getUsers.rejected]: (state, {payload})=>{
+            state.user.isLoading = false;
+            if(payload){
+                state.users.status = payload.status;
+                state.users.msg = payload.msg;
+
+            }else{
+                // to get rid of next js server error
+                state.users.status = false;
+                state.users.msg = 'Error occured';
+            }
+        },
+
         // resend verification link
         [sendVerificationLink.pending]: (state)=>{
             state.sendVerifyLink.isLoading = true;
@@ -343,6 +474,96 @@ export const authReducer = createSlice({
                 state.sendVerifyLink.msg = 'Error occured';
             }
         },
+
+        
+        // block user
+        [blockUser.pending]: (state)=>{
+            state.block.isLoading = true;
+        },
+        [blockUser.fulfilled]: (state, {payload})=>{
+            state.block.isLoading = false;
+            state.block.status = payload.status;
+            state.block.msg = payload.msg;
+            //get the returned data and replace the existing one
+            const currentState = current(state.users.data);
+            // find the id index and replace the data in payload
+            const index = currentState.findIndex(data=>{
+                return payload.data._id === data._id
+            })
+            
+            state.users.data[index] = payload.data;
+
+        },
+        [blockUser.rejected]: (state, {payload})=>{
+            state.block.isLoading = false;
+            if(payload){
+                state.block.status = payload.status;
+                state.block.msg = payload.msg;
+            }else{
+                // to get rid of next js server error
+                state.block.status = false;
+                state.block.msg = 'Error occured';
+            }
+        }, 
+
+
+        // unblock user
+        [unBlockUser.pending]: (state)=>{
+            state.unblock.isLoading = true;
+        },
+        [unBlockUser.fulfilled]: (state, {payload})=>{
+            state.unblock.isLoading = false;
+            state.unblock.status = payload.status;
+            state.unblock.msg = payload.msg;
+            //get the returned data and replace the existing one
+            const currentState = current(state.users.data);
+            // find the id index and replace the data in payload
+            const index = currentState.findIndex(data=>{
+                return payload.data._id === data._id
+            })
+            
+            state.users.data[index] = payload.data;
+
+        },
+        [unBlockUser.rejected]: (state, {payload})=>{
+            state.unblock.isLoading = false;
+            if(payload){
+                state.unblock.status = payload.status;
+                state.unblock.msg = payload.msg;
+            }else{
+                // to get rid of next js server error
+                state.unblock.status = false;
+                state.unblock.msg = 'Error occured';
+            }
+        },
+
+
+        // delete user
+        [deleteUser.pending]: (state)=>{
+            state.del.isLoading = true;
+        },
+        [deleteUser.fulfilled]: (state, {payload})=>{
+            state.del.isLoading = false;
+            state.del.status = payload.status;
+            state.del.msg = payload.msg;
+            const userState = current(state).users.data
+            const newUsers = userState.filter(plan=>{
+                return plan._id !== payload.data._id
+            })
+            state.users.data = newUsers;
+
+        },
+        [deleteUser.rejected]: (state, {payload})=>{
+            state.del.isLoading = false;
+            if(payload){
+                state.del.status = payload.status;
+                state.del.msg = payload.msg;
+            }else{
+                // to get rid of next js server error
+                state.del.status = false;
+                state.del.msg = 'Error occured';
+            }
+        }, 
     }
     
 })

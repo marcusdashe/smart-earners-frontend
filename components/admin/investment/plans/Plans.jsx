@@ -5,9 +5,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import {useSnap} from '@mozeyinedu/hooks-lab';
 import Link from 'next/link';
 import { useRouter } from "next/router";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { handleAdd, getPlans, handleUpdate, handleDelete } from "../../../../redux/investmentPlans/investmentPlans";
 import styled from 'styled-components'
 import Spinner from '../../../../loaders/Spinner';
+import Feedback from "../../../Feedback";
+import { SwipeWrapper } from "../../../public/home/styles";
+import resolveInvestmentLifespan from "../../../../utils/resolveInvestmentLifeSpan";
 
 import {Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {
@@ -33,9 +37,7 @@ import {
   Title,
   Label
 } from "../../styles";
-import Feedback from "../../../Feedback";
-import { SwipeWrapper } from "../../../public/home/styles";
-import SinglePlan from "../../../public/home/SinglePlan";
+
 
 export default function Plans() {
   const router = useRouter()
@@ -50,7 +52,7 @@ export default function Plans() {
     lifespan: '',
     returnPercentage: '',
   }
-  const [data, setDate] = useState(initialState)
+  const [initial, setInitial] = useState(initialState)
 
   useEffect(()=>{
     dispatch(getPlans())
@@ -72,17 +74,22 @@ export default function Plans() {
           </Link>
       </Header>
 
+      <AdminWrapper>
+        <SetPlan update={update} setUpdate={setUpdate} setInitial={setInitial} initial={initial}/>
+      </AdminWrapper>
+
+      <h3 style={{textAlign: 'center'}}>Investment Plans</h3>
+
       {
         plans.isLoading ? <Loader_ /> : 
         (
           plans.data.length < 1 ?
           (
-            <div style={{textAlign: 'center'}}>{plans.msg || 'No data currently available'}</div>
+            <div style={{textAlign: 'center'}}>{'No data currently available'}</div>
           ):
           (
             <AdminWrapper>
-              <SetPlan setUpdate={setUpdate} update={update} setDate={setDate} data={data}/>
-              <GetPlans setUpdate={setUpdate} update={update} setDate={setDate} data={data} plans={plans.data}/>
+              <GetPlans setUpdate={setUpdate} update={update} setInitial={setInitial} initial={initial} data={plans.data}/>
             </AdminWrapper>
           )
         )
@@ -91,9 +98,7 @@ export default function Plans() {
   )
 }
 
-
-
-function SetPlan({setUpdate, update, data, setDate}){
+function SetPlan({update, initial, setUpdate, setInitial}){
   const dispatch = useDispatch()
   const state = useSelector(state=>state);
   const {add} = state.plans;
@@ -103,6 +108,7 @@ function SetPlan({setUpdate, update, data, setDate}){
     msg: add.msg,
     status: false
   });
+
   useEffect(()=>{
 
     // show feedback
@@ -110,19 +116,56 @@ function SetPlan({setUpdate, update, data, setDate}){
       msg: add.msg,
       status: true
     });
-    
   }, [add])
 
-  const [inp, setInp] = useState(data)
+  const initialState = {
+    type: '',
+    amount: '',
+    lifespan: '',
+    returnPercentage: '',
+  }
+
+  const [inp, setInp] = useState(initialState)
   const getInp=(e)=>{
     const {name, value} = e.target;
     setInp({...inp, [name]:value})
   }
 
+  useEffect(()=>{
+    setInp(initial)
+  }, [update])
+
   const submit=(e)=>{
     e.preventDefault()
-    dispatch(handleAdd(inp))
+    
+    const updatingData = {
+      id: inp.id, 
+      data: {
+        type: inp.type,
+        amount: inp.amount,
+        lifespan: inp.lifespan,
+        returnPercentage: inp.returnPercentage,
+      }
+    }
+    !update ? dispatch(handleAdd(inp)) : dispatch(handleUpdate(updatingData))
+
   }
+
+  const handleReset=()=>{
+    setInitial(initialState)
+    setUpdate(false)
+  }
+
+  //clear form input
+  useEffect(()=>{
+
+    if(add.status){
+      setInitial(initialState)
+      setUpdate(false)
+    }
+
+  }, [add])
+
 
   return (
     <Plan>
@@ -195,12 +238,23 @@ function SetPlan({setUpdate, update, data, setDate}){
             value={add.isLoading ? 'Loading...' : (update ? 'Update Plan' : 'Add Pann')}
           />
         </InputWrapper>
+        {
+          !update ? '':
+          <InputWrapper>
+            <input
+              onClick={handleReset}
+              disabled={add.isLoading}
+              type="reset"
+              value='Cancel'
+            />
+          </InputWrapper>
+        }
       </form>
     </Plan>
   )
 }
 
-function GetPlans({setUpdate, update, data, setDate, plans}){
+function GetPlans({setUpdate, update, data, setInitial, initial}){
 
   return (
     <Plan>
@@ -239,10 +293,10 @@ function GetPlans({setUpdate, update, data, setDate, plans}){
                       },
                   }
                 }>
-                {plans.map((each, idx) => 
+                {data.map((each, idx) => 
                     (
                       <SwiperSlide key={idx}>
-                          <SinglePlan data={each} />
+                          <SinglePlan data={each} setUpdate={setUpdate} update={update} setInitial={setInitial} initial={initial}/>
                       </SwiperSlide>
                     )
                 ) }
@@ -253,12 +307,126 @@ function GetPlans({setUpdate, update, data, setDate, plans}){
   )
 }
 
+const SinglePlan = ({setUpdate, data, setInitial}) => {
+  const dispatch = useDispatch()
+
+
+  const handleEdit =(data)=>{
+    setUpdate(true);
+    setInitial({
+      id: data._id,
+      type: data.type,
+      amount: data.amount,
+      lifespan: data.lifespan,
+      returnPercentage: data.returnPercentage,
+    })
+    window.scroll({
+      top:0,
+      left:0,
+      behavior: 'smooth'
+    })
+  }
+
+  return (
+    <StyledSinglePlan>
+        <section className="content">
+            <span className="top">
+                  <p>{ data.type }</p>
+            </span>
+
+            <span className="bottom">
+                <aside className="amount">
+                    <p>Amount</p>
+                    <p style={{fontSize: '.9rem', fontWeight: 'bold'}}>{data.amount} {data.currency}</p>
+                </aside>
+                <aside style={{borderLeft:'1px solid #ccc',paddingLeft: '5px'}} className="returns">
+                    <p>Returns</p>
+                    <p style={{fontSize: '.9rem', fontWeight: 'bold'}}>{resolveInvestmentLifespan(data.returnPercentage, data.lifespan)}</p>
+                </aside>
+            </span>
+            <div className="actions">
+              <div className="actionBtn" onClick={()=>handleEdit(data)}>
+                <EditIcon  style={{color: 'var(--bright-color', fontSize: '2rem'}}/>
+              </div>
+              <div className="actionBtn" onClick={()=>dispatch(handleDelete(data._id))}>
+                <DeleteForeverIcon style={{color: '#c20', fontSize: '2rem'}} />
+              </div>
+            </div>
+        </section>
+    </StyledSinglePlan>
+  )
+}
+
+const StyledSinglePlan = styled.div`
+  width: 300px;
+  justify-self: center;
+  height: fit-content;
+  background-image: linear-gradient(to bottom, #a4b0b5e0 60%, #c7edff);
+  color: var(--major-color-purest);
+  user-select: none;
+
+  @media (min-width: 700px){
+    width: 270px;
+  }
+
+  .content{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .top{
+        width: 100%;
+        height: 30px;
+        display: flex;
+        color: #fff;
+        justify-content: flex-start;
+        align-items: flex-start;
+        border-bottom: 2px solid whitesmoke;
+        p{
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+    }
+
+    .bottom{
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      .amount p:nth-child(2){
+        font-weight: 600;
+        font-size: 1rem;
+      }
+
+      .returns p:nth-child(2){
+        font-weight: 600;
+        font-size: 1rem;
+      }
+    }
+
+    .actions{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .actionBtn{
+        cursor: pointer;
+        &:hover{
+          opacity: .5;
+        }
+      }
+    }
+  }
+
+`
+
 const Plan = styled.div`
   margin-bottom: 30px;
   form{
     width: 90%;
     max-width: 400px;
     margin: 10px auto;
+
   }
   .title{
     font-weight: bold;
@@ -299,6 +467,5 @@ const AllPlan = styled.div`
   width: 98vw;
   max-width: 1200px;
   margin: auto;
-  border: 1px solid red;
   padding: 10px;
 `

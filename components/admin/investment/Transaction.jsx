@@ -16,21 +16,14 @@ import {
   Title,
   Label
 } from "../styles";
+import GoBackBtn from "../../GoBackBtn";
 
 export default function Transaction() {
   const router = useRouter()
   return (
     <div>
       <Header>
-          <Link href='/admin/investment' passHref>
-            <a className={router.asPath === '/admin/investment' ? 'active' : ''}>Config</a>
-          </Link>
-          <Link href='/admin/investment/transactions' passHref>
-            <a className={router.asPath === '/admin/investment/transactions' ? 'active' : ''}>Transactions</a>
-          </Link>
-          <Link href='/admin/investment/plans' passHref>
-            <a className={router.asPath === '/admin/investment/plans' ? 'active' : ''}>Plans</a>
-          </Link>
+          <GoBackBtn />
       </Header>
 
       <AdminWrapper>
