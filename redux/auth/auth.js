@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk, current} from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { BACKEND_BASE_URL } from '../../utils/config';
@@ -178,7 +178,6 @@ export const deleteUser = createAsyncThunk(
     async(id, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-
                 const res = await axios.delete(`${BACKEND_BASE_URL}/auth/delete-account/${id}`, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
@@ -188,8 +187,10 @@ export const deleteUser = createAsyncThunk(
             }            
         }
         catch(err){
+
             if(err.response.data){
                 return rejectWithValue({status: false, msg: err.response.data.msg});
+                
             }
             else{
                 return rejectWithValue({status: false, msg: err.message, data: ''});
@@ -204,8 +205,7 @@ export const blockUser= createAsyncThunk(
     async(id, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-
-                const res = await axios.put(`${BACKEND_BASE_URL}/auth/block-user/${id}`, {
+                const res = await axios.put(`${BACKEND_BASE_URL}/auth/block-user/${id}`, {}, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -215,6 +215,7 @@ export const blockUser= createAsyncThunk(
         }
         catch(err){
             if(err.response.data){
+                console.log(err.response.data)
                 return rejectWithValue({status: false, msg: err.response.data.msg});
             }
             else{
@@ -230,14 +231,13 @@ export const unBlockUser= createAsyncThunk(
     async(id, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-
-                const res = await axios.put(`${BACKEND_BASE_URL}/auth/block-user/${id}`, {
+                const res = await axios.put(`${BACKEND_BASE_URL}/auth/unblock-user/${id}`, {},{
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
                 });
                 return res.data;
-            }            
+            }              
         }
         catch(err){
             if(err.response.data){
@@ -250,6 +250,55 @@ export const unBlockUser= createAsyncThunk(
     }
 )
 
+// make-admin
+export const makeAdmin= createAsyncThunk(
+    'auth/make-admin',
+    async(id, {rejectWithValue})=>{
+        try{
+            if(Cookies.get('accesstoken')){
+                const res = await axios.put(`${BACKEND_BASE_URL}/auth/make-admin/${id}`, {}, {
+                    headers: {
+                        "Authorization": `Bearer ${Cookies.get('accesstoken')}`
+                    }
+                });
+                return res.data;
+            }             
+        }
+        catch(err){
+            if(err.response.data){
+                return rejectWithValue({status: false, msg: err.response.data.msg});
+            }
+            else{
+                return rejectWithValue({status: false, msg: err.message, data: ''});
+            }
+        }
+    }
+)
+
+// remove-admin
+export const removeAdmin= createAsyncThunk(
+    'auth/remove-admin',
+    async(id, {rejectWithValue})=>{
+        try{
+            if(Cookies.get('accesstoken')){
+                const res = await axios.put(`${BACKEND_BASE_URL}/auth/remove-admin/${id}`, {}, {
+                    headers: {
+                        "Authorization": `Bearer ${Cookies.get('accesstoken')}`
+                    }
+                });
+                return res.data;
+            }              
+        }
+        catch(err){
+            if(err.response.data){
+                return rejectWithValue({status: false, msg: err.response.data.msg});
+            }
+            else{
+                return rejectWithValue({status: false, msg: err.message, data: ''});
+            }
+        }
+    }
+)
 
 // resend verification link
 export const sendVerificationLink= createAsyncThunk(
@@ -276,6 +325,8 @@ export const sendVerificationLink= createAsyncThunk(
     }
 )
 
+
+
 const initialState = {
     signup: { isLoading: false, status: false, msg: ''},
     signin: { isLoading: false, status: false, msg: ''},
@@ -288,6 +339,8 @@ const initialState = {
     block: { isLoading: false, status: false, msg: '' },
     unblock: { isLoading: false, status: false, msg: '' },
     del: { isLoading: false, status: false, msg: '' },
+    makeadmin: { isLoading: false, status: false, msg: '' },
+    removeadmin: { isLoading: false, status: false, msg: '' },
 }
 
 export const authReducer = createSlice({
@@ -475,7 +528,66 @@ export const authReducer = createSlice({
             }
         },
 
+        // removeAdmin
+        [removeAdmin.pending]: (state)=>{
+            state.removeadmin.isLoading = true;
+        },
+        [removeAdmin.fulfilled]: (state, {payload})=>{
+            state.removeadmin.isLoading = false;
+            state.removeadmin.status = payload.status;
+            state.removeadmin.msg = payload.msg;
+            // get the returned data and replace the existing one
+            const currentState = current(state.users.data);
+            // find the id index and replace the data in payload
+            const index = currentState.findIndex(data=>{
+                return payload.data._id === data._id
+            })
+            state.users.data[index] = payload.data;
+
+        },
+        [removeAdmin.rejected]: (state, {payload})=>{
+            state.removeadmin.isLoading = false;
+            if(payload){
+                state.removeadmin.status = payload.status;
+                state.removeadmin.msg = payload.msg;
+            }else{
+                // to get rid of next js server error
+                state.removeadmin.status = false;
+                state.removeadmin.msg = 'Error occured';
+            }
+        }, 
+
         
+        // makeAdmin
+        [makeAdmin.pending]: (state)=>{
+            state.makeadmin.isLoading = true;
+        },
+        [makeAdmin.fulfilled]: (state, {payload})=>{
+            state.makeadmin.isLoading = false;
+            state.makeadmin.status = payload.status;
+            state.makeadmin.msg = payload.msg;
+            // get the returned data and replace the existing one
+            const currentState = current(state.users.data);
+            // find the id index and replace the data in payload
+            const index = currentState.findIndex(data=>{
+                return payload.data._id === data._id
+            })
+            
+            state.users.data[index] = payload.data;
+        },
+        [makeAdmin.rejected]: (state, {payload})=>{
+            state.makeadmin.isLoading = false;
+            if(payload){
+                state.makeadmin.status = payload.status;
+                state.makeadmin.msg = payload.msg;
+            }else{
+                // to get rid of next js server error
+                state.makeadmin.status = false;
+                state.makeadmin.msg = 'Error occured';
+            }
+        }, 
+
+
         // block user
         [blockUser.pending]: (state)=>{
             state.block.isLoading = true;
@@ -484,7 +596,7 @@ export const authReducer = createSlice({
             state.block.isLoading = false;
             state.block.status = payload.status;
             state.block.msg = payload.msg;
-            //get the returned data and replace the existing one
+            // get the returned data and replace the existing one
             const currentState = current(state.users.data);
             // find the id index and replace the data in payload
             const index = currentState.findIndex(data=>{
@@ -515,7 +627,7 @@ export const authReducer = createSlice({
             state.unblock.isLoading = false;
             state.unblock.status = payload.status;
             state.unblock.msg = payload.msg;
-            //get the returned data and replace the existing one
+            // get the returned data and replace the existing one
             const currentState = current(state.users.data);
             // find the id index and replace the data in payload
             const index = currentState.findIndex(data=>{
@@ -523,6 +635,7 @@ export const authReducer = createSlice({
             })
             
             state.users.data[index] = payload.data;
+ 
 
         },
         [unBlockUser.rejected]: (state, {payload})=>{
@@ -546,8 +659,10 @@ export const authReducer = createSlice({
             state.del.isLoading = false;
             state.del.status = payload.status;
             state.del.msg = payload.msg;
-            const userState = current(state).users.data
-            const newUsers = userState.filter(plan=>{
+            // get the returned data and replace the existing one
+            const currentState = current(state.users.data);
+
+            const newUsers = currentState.filter(plan=>{
                 return plan._id !== payload.data._id
             })
             state.users.data = newUsers;

@@ -69,7 +69,7 @@ export const handleRemove= createAsyncThunk(
     async(id, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.put(`${BACKEND_BASE_URL}/testimonials/remove/${id}`, {
+                const res = await axios.put(`${BACKEND_BASE_URL}/testimonials/remove/${id}`,{}, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
