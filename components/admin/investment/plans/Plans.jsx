@@ -259,14 +259,13 @@ function GetPlans({setUpdate, update, data, setInitial, initial}){
   return (
     <Plan>
       <AllPlan>
-        <SwipeWrapper>
+        <SwipeWrapper_>
           <Swiper
               className='swiper'
               modules={[Navigation, Pagination, Scrollbar, Autoplay, A11y]}
               spaceBetween={10}
-              // autoplay = { {delay: 5000}}
-              // loop
-              // scrollbar={{draggable: true}}
+              autoplay = { {delay: 5000}}
+              loop
               pagination = {{ clickable: true}}
               slidesPerView={3}
               breakpoints={
@@ -295,13 +294,13 @@ function GetPlans({setUpdate, update, data, setInitial, initial}){
                 }>
                 {data.map((each, idx) => 
                     (
-                      <SwiperSlide key={idx}>
+                      <SwiperSlide key={idx} className='swipe'>
                           <SinglePlan data={each} setUpdate={setUpdate} update={update} setInitial={setInitial} initial={initial}/>
                       </SwiperSlide>
                     )
                 ) }
             </Swiper>
-          </SwipeWrapper>   
+          </SwipeWrapper_>   
       </AllPlan>
     </Plan>
   )
@@ -357,16 +356,17 @@ const SinglePlan = ({setUpdate, data, setInitial}) => {
   )
 }
 
+
+
 const StyledSinglePlan = styled.div`
-  width: 300px;
-  justify-self: center;
+  width: 330px;
   height: fit-content;
-  background-image: linear-gradient(to bottom, #a4b0b5e0 60%, #c7edff);
-  color: var(--major-color-purest);
+  background-image: linear-gradient(to right,var(--major-color-purest),#6babc9);
+  color: #fff;
   user-select: none;
 
-  @media (min-width: 700px){
-    width: 270px;
+  @media (min-width: 400px){
+    width: 300px;
   }
 
   .content{
@@ -393,6 +393,11 @@ const StyledSinglePlan = styled.div`
       display: flex;
       justify-content: space-between;
       margin: 10px 0;
+      
+      aside{
+        width: 50%;
+        margin-top: 10px;
+      }
       .amount p:nth-child(2){
         font-weight: 600;
         font-size: 1rem;
@@ -418,6 +423,23 @@ const StyledSinglePlan = styled.div`
     }
   }
 
+`
+
+const AllPlan = styled.div`
+  width: 98%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 10px 0;
+`
+const SwipeWrapper_ = styled.div`
+  width: 100%;
+  margin: auto;
+
+  .swipe{
+    @media(max-width: 400px){
+      width: 300px;
+    }
+  }
 `
 
 const Plan = styled.div`
@@ -461,11 +483,4 @@ const Plan = styled.div`
     display: flex;
     justify-content: center;
   }
-`
-
-const AllPlan = styled.div`
-  width: 98vw;
-  max-width: 1200px;
-  margin: auto;
-  padding: 10px;
 `

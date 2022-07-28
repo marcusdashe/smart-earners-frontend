@@ -40,7 +40,7 @@ export default function Header_({userInfo, showMenuLargeScreen, setShowMenuLarge
                     </Link>
                 </div>
 
-                {function(){
+                {/* {function(){
                     if(router.asPath == '/admin'){
                         return <div style={{fontSize: '.7rem'}}>Config</div>
                     }
@@ -62,7 +62,7 @@ export default function Header_({userInfo, showMenuLargeScreen, setShowMenuLarge
                     if(router.asPath.includes('/admin/referrals')){
                         return <div style={{fontSize: '.7rem'}}>Referrals</div>
                     }
-                }()}
+                }()} */}
 
                 {/* nav link btn */}
                 <div className='col3'>

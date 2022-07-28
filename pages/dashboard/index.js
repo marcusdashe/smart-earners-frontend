@@ -1,8 +1,10 @@
-import Index from "../../components/user/home/Index";
+import React from 'react'
+import Investment from '../../components/user/investment/Investment'
 
-export default function index({userInfo}) {
-  return <Index userInfo={userInfo}/>
+export default function investment() {
+  return <Investment />
 }
+
 
 
 // handle redirect if user sign up

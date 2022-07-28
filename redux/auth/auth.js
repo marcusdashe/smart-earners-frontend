@@ -148,7 +148,7 @@ export const getUser= createAsyncThunk(
 
 // get profile
 export const getUsers= createAsyncThunk(
-    'auth/getUser',
+    'auth/getUsers',
     async(data, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){

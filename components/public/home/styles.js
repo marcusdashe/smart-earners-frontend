@@ -213,7 +213,7 @@ const PartnersWrapper = styled(Wrapper)`
     background: var(--major-color-30A);
 
     .content {
-        width: 70%;
+        // width: 70%;
         margin: 20px auto; 
         display: flex;
         flex-flow: row wrap;
@@ -222,30 +222,30 @@ const PartnersWrapper = styled(Wrapper)`
     }
 `
 const SwipeWrapper = styled.div`
-    margin: 20px auto;
-    width: 97%;
-    min-width: 300px;
-    display: flex;
-    justify-content: center;
+    // margin: 20px auto;
+    // width: 97%;
+    // min-width: 200px;
+    // display: flex;
+    // justify-content: center;
 
-    .swiper{
-        width: 100%;
-        display: flex;
-        justify-content: center;
+    // .swiper{
+    //     // width: 100%;
+    //     display: flex;
+    //     justify-content: center;
 
-        @media (max-width: 920px){
-            width: 100%;
-        };
-        @media (max-width: 820px){
-            width: 450px;
-        };
-        @media (max-width: 500px){
-            width: 450px;
-        }
-        @media (max-width: 490px){
-            width: 350px;
-        }
-    }
+    //     @media (max-width: 920px){
+    //         width: 100%;
+    //     };
+    //     @media (max-width: 820px){
+    //         width: 450px;
+    //     };
+    //     @media (max-width: 500px){
+    //         width: 450px;
+    //     }
+    //     @media (max-width: 490px){
+    //         width: 350px;
+    //     }
+    // }
 `
 
 

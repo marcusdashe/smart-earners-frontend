@@ -5,6 +5,7 @@ import plansReducer from './investmentPlans/investmentPlans';
 import testimonialReducer from './testimonials/testimonials';
 import transferReducer from './admin/transfer';
 import withdrawalsReducer from './admin/withdrawals';
+import investmentReducer from './invest/invest';
 
 
 
@@ -17,6 +18,7 @@ export const store = configureStore({
         testimonial: testimonialReducer,
         transfer: transferReducer,
         withdraws: withdrawalsReducer,
+        investment: investmentReducer
     }
 });
 

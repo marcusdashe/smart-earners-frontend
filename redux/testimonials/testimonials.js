@@ -179,6 +179,7 @@ export const testimonialReducer = createSlice({
             state.post.isLoading = false;
             state.post.status = payload.status;
             state.post.msg = payload.msg;
+            state.selectedTestimonials.data.push(payload.data)
         },
         [postTestimonial.rejected]: (state, {payload})=>{
             state.post.isLoading = false;
@@ -200,6 +201,14 @@ export const testimonialReducer = createSlice({
             state.del.isLoading = false;
             state.del.status = payload.status;
             state.del.msg = payload.msg;
+            // get the returned data and replace the existing one
+            // const currentState = current(state).selectedTestimonials.data
+            // const newState = currentState.filter(d=>{
+            //     return d._id !== payload.data._id
+            // })
+            // state.selectedTestimonials.data = newState;
+            // console.log(current(selectedTestimonials))
+            
         },
         [handleDelete.rejected]: (state, {payload})=>{
             state.del.isLoading = false;
@@ -221,6 +230,13 @@ export const testimonialReducer = createSlice({
             state.remove.isLoading = false;
             state.remove.status = payload.status;
             state.remove.msg = payload.msg;
+            // const currentState = current(state.selectedTestimonials.data);
+            // // find the id index and replace the data in payload
+            // const index = currentState.findIndex(data=>{
+            //     return payload.data._id === data._id
+            // })
+            
+            // state.selectedTestimonials.data[index] = payload.data;
         },
         [handleRemove.rejected]: (state, {payload})=>{
             state.remove.isLoading = false;
