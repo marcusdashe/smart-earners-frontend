@@ -128,11 +128,13 @@ export const Signin=({userInfo})=>{
                     <InputIcon right="" left="0">
                     <MdOutlineEmail />
                     </InputIcon>
-                    <input type="text" 
-                    name="email"
-                    value={inp.email || ''}
-                    placeholder="Email/Username"
-                    onInput={getInput}
+                    <input
+                        type="text" 
+                        name="email"
+                        value={inp.email || ''}
+                        placeholder="Email/Username"
+                        onInput={getInput}
+                        autoFocus
                     />
                 </InputWrapper>
 
@@ -140,12 +142,13 @@ export const Signin=({userInfo})=>{
                     <InputIcon right="" left="0">
                     <AiTwotoneLock />
                     </InputIcon>
-                    <input type={showPassword ? "text" : "password"} 
-                    name="password"
-                    value={inp.password || ''}
-                    placeholder="Password"
-                    onInput={getInput}
-                />
+                    <input
+                        type={showPassword ? "text" : "password"} 
+                        name="password"
+                        value={inp.password || ''}
+                        placeholder="Password"
+                        onInput={getInput}
+                    />
                     <InputIcon onClick={()=>setShowPassword(!showPassword)} right="0" left="">
                         {showPassword ? <BsFillEyeFill /> : <AiFillEyeInvisible /> }
                     </InputIcon>

@@ -1,18 +1,11 @@
 import { Main, Header, Footer } from '../../styles/globalStyle'
 import Header_ from './Header';
 import { CopyRight } from '../../styles/globalStyle';
-import { useState, useEffect } from "react";
-import { mobileAndTabletCheck } from '../../utils/mobileAndTabletCheck';
 import PostFeedback from './PostFeedback';
 
 
 
 export default function PublicLayout({children, userInfo}) {
-
-    const [isMobile, setIsMobile] = useState(false);
-    useEffect(()=>{
-      setIsMobile(mobileAndTabletCheck(window))
-    }, [])
 
     return (
       <>
@@ -25,18 +18,11 @@ export default function PublicLayout({children, userInfo}) {
             {children}
         </Main>
 
-        {
-          <Footer style={{background: isMobile ? '' : 'var(--major-color-purest)', display: 'flex', justifyContent: 'center', alignItems: 'center'}} footerHeight='50px'>
-            {
-              isMobile ? '' :
-              (
-              <CopyRight>
-                  &copy; {new Date().getFullYear() > 2022 ? '2021 - ' + new Date().getFullYear() : 2022} Smart Earners
-              </CopyRight>
-              )
-            }
-          </Footer> 
-        }
+        <Footer style={{background: 'var(--major-color-purest)', display: 'flex', justifyContent: 'center', alignItems: 'center'}} footerHeight='50px'>
+            <CopyRight>
+                    &copy; {new Date().getFullYear() > 2022 ? '2021 - ' + new Date().getFullYear() : 2022} Smart Earners
+            </CopyRight>
+        </Footer> 
       </>
     )
 }

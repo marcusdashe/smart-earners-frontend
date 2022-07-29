@@ -43,7 +43,28 @@ const resolveApi = {
         catch(err){
             return
         }
+    },
+
+    resolveInvestment: async()=>{
+        try{
+            const res = await axios.get(`${BACKEND_BASE_URL}/investment/resolve`)
+            return;
+        }
+        catch(err){
+            return
+        }
+    },
+
+    removeUnverifiedusers: async()=>{
+        try{
+            const res = await axios.delete(`${BACKEND_BASE_URL}/auth/remove-unverified-users`)
+            return;
+        }
+        catch(err){
+            return
+        }
     }
 }
+
 
 export {resolveApi}

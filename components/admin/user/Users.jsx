@@ -3,14 +3,11 @@ import {useSelector, useDispatch} from 'react-redux';
 import Loader_ from "../loader/Loader";
 import { blockUser, getUsers, deleteUser, unBlockUser, makeAdmin, removeAdmin } from "../../../redux/auth/auth";
 import styled from 'styled-components'
-import BlockIcon from '@mui/icons-material/Block';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import moment from 'moment'
 import Spinner from "../../../loaders/Spinner";
 import filter from "@mozeyinedu/filter";
 import SearchIcon from '@mui/icons-material/Search';
-
-
 
 import {
   AdminWrapper,
@@ -27,7 +24,6 @@ export default function Users({userInfo}) {
   const [admin, setAdmin] = useState(0);
   const [inp, setInp] = useState('');
   const [filteredData, setFilter] = useState(users.data);
-  // console.log(users)
  
   useEffect(()=>{
     let sum = 0;
@@ -58,7 +54,7 @@ export default function Users({userInfo}) {
   useEffect(()=>{
     const newData = filter({
       data: users.data,
-      keys: [ "username", "email", "amount", "accountNumber", 'true'],
+      keys: [ "username", "email", "amount", "accountNumber"],
       input: inp
     })
 
@@ -205,8 +201,7 @@ const Header = styled.div`
   margin-bottom: 20px;
   padding: 10px;
   display: grid;
-  grid-gap: 2;
-  grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );
+  grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
 
   .row{
     padding: 3px;
@@ -215,10 +210,11 @@ const Header = styled.div`
   }
 
   .search{
-    width: 200px;
+    width: 250px;
     height: 30px;
     border: 1px solid var(--major-color-purest);
     border-radius: 12px;
+    background: #fff;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -246,9 +242,9 @@ const Header = styled.div`
 `
 
 const Table = styled.div`
-  padding: 10px;
+  padding: 0 10px;
   overflow: auto;
-  margin: auto;
+  margin: -30px auto 10px auto;
 
 
   ${ScrollBar()}
@@ -259,7 +255,7 @@ const Table = styled.div`
     border-spacing: 0.5rem;
     height: 100%;
     border-collapse: collapse;
-    width: 800px;
+    width: 1200px;
     text-align: left;
     cursor: default;
   }
@@ -276,9 +272,9 @@ const Table = styled.div`
     color: #fff;
   }
 
-  // td:first-child {
-  //   background: red;
-  // }
+  tr:nth-child(even) {
+    background: #ddd;
+  }
 
   tbody tr:hover {
     background: var(--major-color-30A);

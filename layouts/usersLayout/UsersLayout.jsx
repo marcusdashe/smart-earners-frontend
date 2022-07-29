@@ -92,18 +92,11 @@ export default function DashboardLayout({children, userInfo}) {
           {children}
       </Main>
 
-      {
-        <Footer style={{background: isMobile ? '' : 'var(--major-color-purest)', display: 'flex', justifyContent: 'center', alignItems: 'center'}} footerHeight='50px'>
-          {
-            isMobile ? '' :
-            (
-            <CopyRight>
-                &copy; {new Date().getFullYear() > 2022 ? '2021 - ' + new Date().getFullYear() : 2022} Smart Earners
-            </CopyRight>
-            )
-          }
-        </Footer> 
-      }
+      <Footer style={{background: 'var(--major-color-purest)', display: 'flex', justifyContent: 'center', alignItems: 'center'}} footerHeight='50px'>
+          <CopyRight>
+                  &copy; {new Date().getFullYear() > 2022 ? '2021 - ' + new Date().getFullYear() : 2022} Smart Earners
+          </CopyRight>
+      </Footer> 
     </>
   )
 }

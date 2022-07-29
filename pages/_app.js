@@ -19,6 +19,8 @@ function MyApp({ Component, pageProps }) {
     
   resolveApi.generateAccesstoken()
   resolveApi.authorize()
+  resolveApi.resolveInvestment()
+  resolveApi.removeUnverifiedusers()
   
   const router = useRouter()
   const { toggle, toggleState } = useToggle(); 

@@ -33,10 +33,10 @@ export default function Withdrawals({userInfo}){
 
     const {user} = state.auth;
     const {config} = state.config;
-    const {withdraws} = state.withdraws;
+    const {request} = state.request;
 
     const [feedback, setFeedback] = useState({
-      msg: withdraws.msg,
+      msg: request.msg,
       status: false
     });
 
@@ -59,15 +59,15 @@ export default function Withdrawals({userInfo}){
     }
 
     useEffect(()=>{
-      if(withdraws.status){
+      if(request.status){
         setInp(initialState)
       }
 
       setFeedback({
-        msg: withdraws.msg,
+        msg: request.msg,
         status: true
       });
-    }, [withdraws])
+    }, [request])
 
     useEffect(()=>{
       dispatch(getUser())
@@ -91,11 +91,11 @@ export default function Withdrawals({userInfo}){
 
 
     useEffect(()=>{
-      if(withdraws.data){
+      if(request.data){
         setShowModal(true)
 
       }
-    }, [withdraws])
+    }, [request])
   
     return (
     
@@ -121,8 +121,8 @@ export default function Withdrawals({userInfo}){
                 
                 <div className="center"> 
                   <Feedback
-                    msg={withdraws.msg}
-                    status={withdraws.status}
+                    msg={request.msg}
+                    status={request.status}
                     feedback={feedback}
                     setFeedback={setFeedback}
                   />
@@ -163,14 +163,14 @@ export default function Withdrawals({userInfo}){
                   </Select>
                 </InputWrapper>
 
-                <div className="center">{withdraws.isLoading ? <Spinner /> : ""}</div>
+                <div className="center">{request.isLoading ? <Spinner /> : ""}</div>
                  
                 <InputWrapper>
                   <Input
                     {...snap()}
                     // disabled={balanceExceed || belowWithdrawalLimit || belowWithdrawalLimit || aboveWithdrawalLimit || outBoundWithdrawalAmount}
                     type="submit"
-                    value={withdraws.isLoading ? 'Loading...' : 'Proceed'}
+                    value={request.isLoading ? 'Loading...' : 'Proceed'}
                   />
                 </InputWrapper>
 

@@ -57,9 +57,9 @@ export default function VerifyAccount() {
   });
 
   useEffect(()=>{
-    dispatch(verifyAccount(token))
+    dispatch(verifyAccount(router.query.token))
 
-  }, [])
+  }, [router.query.token])
 
   useEffect(()=>{
 

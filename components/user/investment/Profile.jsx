@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {useSnap} from '@mozeyinedu/hooks-lab'
 
 
-export default function Profile({setShowActive}) {
+export default function Profile({setShowActive, shwowActive}) {
     const dispatch = useDispatch()
     const state = useSelector(state=>state);
     const {user} = state.auth;
@@ -23,7 +23,7 @@ export default function Profile({setShowActive}) {
     }
 
     return (
-        <Profile_>
+        <Profile_ shwowActive={shwowActive}>
             <h3 className="name">Hello {user.data.username},</h3>
             <div>Invest and Earn with Us</div>
 
@@ -52,6 +52,7 @@ const Profile_ = styled.div`
     .wrapper{
         width: 98%;
         max-width: 500px;
+        min-width: 200px;
         margin: 20px auto 0 auto;
         padding: 10px;
         border-bottom: 1px solid #aaa;
@@ -88,10 +89,12 @@ const Profile_ = styled.div`
 
             &:nth-child(1){
                 background: var(--major-color-purest);
+                border: ${({shwowActive})=>shwowActive ? '3px solid green' : 'none'};
             }
 
             &:nth-child(2){
-                background: #6babc9
+                background: #6babc9;
+                border: ${({shwowActive})=> !shwowActive ? '3px solid green' : 'none'};
             }
         }
     }

@@ -7,6 +7,7 @@ import Spinner from "../../../loaders/Spinner";
 import { sendVerificationLink } from "../../../redux/auth/auth";
 import Feedback from "../../Feedback";
 import GppGoodIcon from '@mui/icons-material/GppGood';
+import { useRouter } from "next/router";
 
 
 
@@ -15,6 +16,7 @@ const Profile = ({userInfo}) => {
     const state = useSelector(state=>state);
     const [isLoading, setLoading] = useState(true)
     const {user} = state.auth;
+    const router = useRouter()
   
     useEffect(()=>{
       dispatch(getUser())
@@ -112,7 +114,7 @@ const ProfileComp =({data})=>{
                         <legend>ACCOUNT STATUS</legend>
                         <div>
                             <label>
-                                <span>Account Number: </span> <span style={{
+                                <span style={{
                                     color: (function(){
                                         if(data.isBlocked){
                                             return '#c30'
@@ -133,7 +135,7 @@ const ProfileComp =({data})=>{
                         if(data.isBlocked){
                             return (
                                 <section className="bio extraInfo">
-                                    <button>Contact Customer Support</button>
+                                    <button onClick={()=>router.push('/contact-us')}>Contact Customer Support</button>
                                 </section>
                             )
                         }

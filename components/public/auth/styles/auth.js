@@ -48,12 +48,13 @@ export const InputWrapper = styled.div`
         display: block;
         border-radius: 8px;
         color: ${BRAND_COLOR_A};
-        font-size: .9rem; 
-    }
+        font-size: .9rem;
 
-    input: focus{
-        outline: none
-    }
+        &: focus{
+            outline: none;
+            border: 2px solid green;
+        }
+    } 
 
     input[type="submit"]{
         border-radius: 20px;

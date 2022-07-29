@@ -117,6 +117,7 @@ export const ResetPasswordRequest=()=>{
                   <MdOutlineEmail />
                   </InputIcon>
                   <input
+                    autoFocus
                     type="text" 
                     name="email"
                     value={inp.email || ''}

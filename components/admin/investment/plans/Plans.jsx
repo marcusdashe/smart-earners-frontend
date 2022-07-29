@@ -330,7 +330,7 @@ const SinglePlan = ({setUpdate, data, setInitial}) => {
     <StyledSinglePlan>
         <section className="content">
             <span className="top">
-                  <p>{ data.type }</p>
+                  <p>{ data.type && data.type.toUpperCase() }</p>
             </span>
 
             <span className="bottom">

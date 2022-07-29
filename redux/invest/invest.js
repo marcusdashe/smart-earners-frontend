@@ -31,9 +31,10 @@ export const getTxn= createAsyncThunk(
 export const investPlan= createAsyncThunk(
     'config/getTxn',
     async(data, {rejectWithValue})=>{
+        console.log(data)
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.post(`${BACKEND_BASE_URL}/investment/invest/${data}`, {}, {
+                const res = await axios.post(`${BACKEND_BASE_URL}/investment/invest/${data.id}`, {amount: data.amount}, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }

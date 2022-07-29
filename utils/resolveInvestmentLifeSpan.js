@@ -14,7 +14,7 @@
     }
 
     const lifeSpanInDay = ()=>{
-      return `${percentage}% in ${Math.floor(Number(sec) / (60 * 60 * 60 * 24))}  Day${Math.floor(Number(sec) / (60 * 60 * 24)) > 1 ? 's' : ''}`
+      return `${percentage}% in ${Math.floor(Number(sec) / (60 * 60 * 24))}  Day${Math.floor(Number(sec) / (60 * 60 * 24)) > 1 ? 's' : ''}`
     }
   
 

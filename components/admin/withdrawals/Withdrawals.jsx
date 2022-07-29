@@ -4,7 +4,9 @@ import Loader_ from "../loader/Loader";
 import { getConfig, updateConfig} from "../../../redux/admin/web_config";
 import EditIcon from '@mui/icons-material/Edit';
 import {useSnap} from '@mozeyinedu/hooks-lab';
-import TextLoader from "../../../loaders/TextLoader";
+import Link from 'next/link'
+import { useRouter } from "next/router";
+
 
 import {
   AdminWrapper,
@@ -12,6 +14,7 @@ import {
   InputWrapper,
   Container,
   Input,
+  Header,
   Label
 } from "../styles";
 import Transactions from "../transactionsModal/Transactions";
@@ -22,6 +25,7 @@ export default function Withdrawals({userInfo}) {
   const state = useSelector(state=>state);
   const [isLoading, setLoading] = useState(true)
   const {config} = state.config;
+  const router = useRouter()
 
   const initialState = {  
     maxWithdrawalLimit: config.data.maxWithdrawalLimit,
@@ -42,26 +46,38 @@ export default function Withdrawals({userInfo}) {
   }, [])
 
   return (
-    
-    //check if config exist
-    isLoading ? 
-    (
-      // set loading div
-      <Loader_ />
-    ) :
-    (
-      //check if empty
+    <>
+      <Header>
+        <Link href='/admin/withdrawals' passHref>
+          <a className={router.asPath === '/admin/withdrawals' ? 'active' : ''}>Config</a>
+        </Link>
+        <Link href='/admin/withdrawals/transactions' passHref>
+          <a className={router.asPath === '/admin/withdrawals/transactions' ? 'active' : ''}>Transactions</a>
+        </Link>
+      </Header>
 
-      !config.status ? 
-      (
-          <div style={{textAlign: 'center'}}>{config.msg || 'No data currently available'}</div>
-      ):
-      (
-        <AdminWrapper>
-          <SetForm config={config} initialState={initialState}/>
-        </AdminWrapper>
-      )
-    )    
+      {
+        //check if config exist
+        isLoading ? 
+        (
+          // set loading div
+          <Loader_ />
+        ) :
+        (
+          //check if empty
+
+          !config.status ? 
+          (
+              <div style={{textAlign: 'center'}}>{config.msg || 'No data currently available'}</div>
+          ):
+          (
+            <AdminWrapper>
+              <SetForm config={config} initialState={initialState}/>
+            </AdminWrapper>
+          )
+        ) 
+      }
+    </>   
   )
 }
 
@@ -98,7 +114,6 @@ function SetForm({config, initialState}) {
   
     return (
       <div>
-          <Transactions Title_='View Transactions' base="withdrawals"/>
           <Form>
               <Container>
 

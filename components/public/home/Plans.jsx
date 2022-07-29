@@ -121,7 +121,7 @@ const SinglePlan = ({data}) => {
     <StyledSinglePlan>
         <section className="content">
             <span className="top">
-                  <p>{ data.type }</p>
+                  <p>{ data.type && data.type.toUpperCase() }</p>
             </span>
 
             <span className="bottom">
@@ -134,7 +134,7 @@ const SinglePlan = ({data}) => {
                     <p style={{fontSize: '.9rem', fontWeight: 'bold'}}>{resolveInvestmentLifespan(data.returnPercentage, data.lifespan)}</p>
                 </aside>
             </span>
-            <button onClick={()=>router.push('/dashboard/investment')}>Invest Now</button>
+            <button onClick={()=>router.push('/dashboard')}>Invest Now</button>
         </section>
     </StyledSinglePlan>
   )
