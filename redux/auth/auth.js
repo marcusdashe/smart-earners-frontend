@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk, current} from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { BACKEND_BASE_URL } from '../../utils/config';
+// import { BACKEND_BASE_URL } from '../../utils/config';
 
 
 // sign up action
@@ -9,7 +9,7 @@ export const signup = createAsyncThunk(
     'auth/signup',
     async(data, {rejectWithValue})=>{
         try{
-            const res = await axios.post(`${BACKEND_BASE_URL}/auth/signup`, data)
+            const res = await axios.post(`/auth/signup`, data)
             return res.data
         }
         catch(err){
@@ -28,7 +28,7 @@ export const signin= createAsyncThunk(
     'auth/signin',
     async(data, {rejectWithValue})=>{
         try{
-            const res = await axios.post(`${BACKEND_BASE_URL}/auth/signin`, data);
+            const res = await axios.post(`/auth/signin`, data);
             return res.data
         }
         catch(err){
@@ -47,7 +47,7 @@ export const logout= createAsyncThunk(
     'auth/logout',
     async(data, {rejectWithValue})=>{
         try{
-            const res = await axios.get(`${BACKEND_BASE_URL}/auth/logout`)
+            const res = await axios.get(`/auth/logout`)
             return res.data
         }
         catch(err){
@@ -68,7 +68,7 @@ export const resetPasswordRequest= createAsyncThunk(
     async(data, {rejectWithValue})=>{
         
         try{
-            const res = await axios.post(`${BACKEND_BASE_URL}/auth/reset-pass-request`, data);
+            const res = await axios.post(`/auth/reset-pass-request`, data);
             return res.data
         }
         catch(err){
@@ -87,7 +87,7 @@ export const resetPassword= createAsyncThunk(
     'auth/resetPassword',
     async(options, {rejectWithValue})=>{
         try{
-            const res = await axios.post(`${BACKEND_BASE_URL}/auth/reset-pass?token=${options.token}`, options.data);
+            const res = await axios.post(`/auth/reset-pass?token=${options.token}`, options.data);
             return res.data
         }
         catch(err){
@@ -106,7 +106,7 @@ export const verifyAccount= createAsyncThunk(
     'auth/verifyAccount',
     async(token, {rejectWithValue})=>{
         try{
-            const res = await axios.get(`${BACKEND_BASE_URL}/auth/verify-account?token=${token}`);
+            const res = await axios.get(`/auth/verify-account?token=${token}`);
             return res.data
         }
         catch(err){
@@ -127,7 +127,7 @@ export const getUser= createAsyncThunk(
         try{
             if(Cookies.get('accesstoken')){
 
-                const res = await axios.get(`${BACKEND_BASE_URL}/auth/get-profile`, {
+                const res = await axios.get(`/auth/get-profile`, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -153,7 +153,7 @@ export const getUsers= createAsyncThunk(
         try{
             if(Cookies.get('accesstoken')){
 
-                const res = await axios.get(`${BACKEND_BASE_URL}/auth/get-all-users`, {
+                const res = await axios.get(`/auth/get-all-users`, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -178,7 +178,7 @@ export const deleteUser = createAsyncThunk(
     async(id, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.delete(`${BACKEND_BASE_URL}/auth/delete-account/${id}`, {
+                const res = await axios.delete(`/auth/delete-account/${id}`, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -205,7 +205,7 @@ export const blockUser= createAsyncThunk(
     async(id, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.put(`${BACKEND_BASE_URL}/auth/block-user/${id}`, {}, {
+                const res = await axios.put(`/auth/block-user/${id}`, {}, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -231,7 +231,7 @@ export const unBlockUser= createAsyncThunk(
     async(id, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.put(`${BACKEND_BASE_URL}/auth/unblock-user/${id}`, {},{
+                const res = await axios.put(`/auth/unblock-user/${id}`, {},{
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -256,7 +256,7 @@ export const makeAdmin= createAsyncThunk(
     async(id, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.put(`${BACKEND_BASE_URL}/auth/make-admin/${id}`, {}, {
+                const res = await axios.put(`/auth/make-admin/${id}`, {}, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -281,7 +281,7 @@ export const removeAdmin= createAsyncThunk(
     async(id, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.put(`${BACKEND_BASE_URL}/auth/remove-admin/${id}`, {}, {
+                const res = await axios.put(`/auth/remove-admin/${id}`, {}, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -306,7 +306,7 @@ export const sendVerificationLink= createAsyncThunk(
     async(data, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.get(`${BACKEND_BASE_URL}/auth/resend-verification-link`, {
+                const res = await axios.get(`/auth/resend-verification-link`, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }

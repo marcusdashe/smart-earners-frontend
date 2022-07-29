@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { BACKEND_BASE_URL } from '../../utils/config';
+// import { BACKEND_BASE_URL } from '../../utils/config';
 
 
 // resend verification link
@@ -10,7 +10,7 @@ export const withdawalRequest= createAsyncThunk(
     async(data, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.post(`${BACKEND_BASE_URL}/withdrawal/request`, data, {
+                const res = await axios.post(`/withdrawal/request`, data, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }

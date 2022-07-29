@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk, current} from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BACKEND_BASE_URL } from '../../utils/config';
+// import { BACKEND_BASE_URL } from '../../utils/config';
 import Cookies from 'js-cookie'
 
 
@@ -9,7 +9,7 @@ export const getTxn= createAsyncThunk(
     async(data, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.get(`${BACKEND_BASE_URL}/investment/get-all-investments`, {
+                const res = await axios.get(`/investment/get-all-investments`, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -33,7 +33,7 @@ export const investPlan= createAsyncThunk(
     async(data, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.post(`${BACKEND_BASE_URL}/investment/invest/${data}`, {}, {
+                const res = await axios.post(`/investment/invest/${data}`, {}, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }

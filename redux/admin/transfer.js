@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { BACKEND_BASE_URL } from '../../utils/config';
+// import { BACKEND_BASE_URL } from '../../utils/config';
 
 
 // resend verification link
@@ -10,7 +10,7 @@ export const checkUser= createAsyncThunk(
     async(data, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.post(`${BACKEND_BASE_URL}/transfer/check-user`, data, {
+                const res = await axios.post(`/transfer/check-user`, data, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
@@ -35,7 +35,7 @@ export const payUser= createAsyncThunk(
     async(data, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
-                const res = await axios.post(`${BACKEND_BASE_URL}/transfer/pay-user`, data, {
+                const res = await axios.post(`/transfer/pay-user`, data, {
                     headers: {
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
