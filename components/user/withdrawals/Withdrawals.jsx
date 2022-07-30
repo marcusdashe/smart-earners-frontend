@@ -33,7 +33,7 @@ export default function Withdrawals({userInfo}){
 
     const {user} = state.auth;
     const {config} = state.config;
-    const {request} = state.request;
+    const {request} = state.withdrawal;
 
     const [feedback, setFeedback] = useState({
       msg: request.msg,
@@ -115,7 +115,7 @@ export default function Withdrawals({userInfo}){
           ):
           (
             <Wrapper>
-              <div className="account-balance" style={{color: balanceExceed ? '#c20' : 'var(--major-color-purest)'}}>Total Balance: {user.data.amount} {user.data.nativeCurrency}</div>
+              <div className="account-balance" style={{color: balanceExceed ? '#c20' : 'var(--major-color-purest)'}}>Total Balance: {user.data.amount} {config.data.nativeCurrency}</div>
               <Form onSubmit={submit}>
                 <h3 className="title">Withdrawals</h3>
                 
@@ -132,7 +132,7 @@ export default function Withdrawals({userInfo}){
                   <Input
                     autoFocus
                     type="text"
-                    placeholder="Correct Wallet Address"
+                    placeholder="Enter Valid Wallet Address"
                     name='walletAddress'
                     value={inp.walletAddress || ''}
                     onChange={getInp}
@@ -154,7 +154,7 @@ export default function Withdrawals({userInfo}){
                   <Select onChange={getInp} name="coin" id="">
                       <option value="">--Select a Coin--</option>
                       {
-                        config.data.withdrawalCoins.map((coin, i)=>{
+                        config.data && config.data.withdrawalCoins.map((coin, i)=>{
                           return(
                             <option key={i} value={coin}>{coin}</option>
                           )

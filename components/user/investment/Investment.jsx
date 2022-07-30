@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
-import { investPlan, getTxn } from "../../../redux/invest/invest";
+import { investPlan } from "../../../redux/invest/invest";
 import Feedback from "../../Feedback";
 import { getPlans } from '../../../redux/investmentPlans/investmentPlans.js';
 import {useSnap} from '@mozeyinedu/hooks-lab'
@@ -38,7 +38,6 @@ const Plans = ({userInfo}) => {
     const [shwowActive, setShowActive] = useState(true)
     const {plans} = state.plans;
     const {user} = state.auth;
-    const {txn} = state.investment;
     const [showModal, setShowModal] = useState(false)
     const [masterPlanData, setMasterPlanData] = useState('')
 
@@ -49,10 +48,9 @@ const Plans = ({userInfo}) => {
     })
 
     useEffect(()=>{
-        dispatch(getPlans())
-        dispatch(getTxn())
-        dispatch(getUser())
-    }, [])
+      dispatch(getUser())
+      dispatch(getPlans())
+  }, [])
 
     const investBtn=(data)=>{
       if(data.type.toLowerCase() === 'master'){
@@ -111,7 +109,8 @@ const Plans = ({userInfo}) => {
                     modules={[Navigation, Pagination, Scrollbar, Autoplay, A11y]}
                     spaceBetween={10}
                     autoplay = { {delay: 5000}}
-                    loop
+                    scrollbar={{draggable: true}}
+                    // loop
                     pagination = {{ clickable: true}}
                     slidesPerView={3}
                     breakpoints={
@@ -163,7 +162,7 @@ const Plans = ({userInfo}) => {
       <h3 style={{padding: '20px 5px 5px 20px'}}>INVESTMENT SUMMARY</h3>
 
       {
-        shwowActive ? <Active txn={txn} user={user.data.isAdmin}/> : <Mature txn={txn} user={user.data.isAdmin}/>
+        shwowActive ? <Active user={user.data.isAdmin}/> : <Mature user={user.data.isAdmin}/>
       }
       
     </Plan>
@@ -327,7 +326,7 @@ const Input = styled.input`
 
 const StyledSinglePlan = styled.div`
   width: 330px;
-  height: 180px;
+  height: 190px;
   background-image: linear-gradient(to right,var(--major-color-purest),#6babc9);
   color: #fff;
   user-select: none;

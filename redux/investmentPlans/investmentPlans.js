@@ -195,6 +195,7 @@ export const plansReducer = createSlice({
             state.deletePlan.isLoading = false;
             state.deletePlan.status = payload.status;
             state.deletePlan.msg = payload.msg;
+            
             const planState = current(state).plans.data
             const newPlans = planState.filter(plan=>{
                 return plan._id !== payload.data._id

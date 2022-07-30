@@ -1,7 +1,18 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import Spinner from '../../../loaders/Spinner';
+import {useSelector, useDispatch} from 'react-redux';
+import { getTxn } from "../../../redux/invest/invest";
 
-export default function Mature({txn}) {
+export default function Mature() {
+    const dispatch = useDispatch()
+    const state = useSelector(state=>state);
+    const {txn} = state.investment
+
+    useEffect(()=>{
+      dispatch(getTxn())
+    }, [])
+
     const month = ['Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul','Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     return (
       <>

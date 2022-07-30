@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 
 
 export const getTxn= createAsyncThunk(
-    'config/handleAdd',
+    'investment/getTxn',
     async(data, {rejectWithValue})=>{
         try{
             if(Cookies.get('accesstoken')){
@@ -29,7 +29,7 @@ export const getTxn= createAsyncThunk(
 )
 
 export const investPlan= createAsyncThunk(
-    'config/getTxn',
+    'investment/invest',
     async(data, {rejectWithValue})=>{
         console.log(data)
         try{

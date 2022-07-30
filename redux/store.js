@@ -17,7 +17,7 @@ export const store = configureStore({
         plans: plansReducer,
         testimonial: testimonialReducer,
         transfer: transferReducer,
-        withdraws: withdrawalsReducer,
+        withdrawal: withdrawalsReducer,
         investment: investmentReducer
     }
 });

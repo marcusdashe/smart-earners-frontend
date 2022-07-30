@@ -24,6 +24,8 @@ export default function Users({userInfo}) {
   const [admin, setAdmin] = useState(0);
   const [inp, setInp] = useState('');
   const [filteredData, setFilter] = useState(users.data);
+
+  const month = ['Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul','Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
  
   useEffect(()=>{
     let sum = 0;
@@ -154,7 +156,9 @@ export default function Users({userInfo}) {
                     return (
                       <tr key={user._id}>
                         <td>{i+1}</td>
-                        <td>{moment(user.createdAt).calendar()}</td>
+                        <td>
+                          {month[new Date(user.createdAt).getMonth()]} {new Date(user.createdAt).getDate()}, {new Date(user.createdAt).getFullYear()}
+                        </td>
                         <td>{user.email}</td>
                         <td>{user.username}</td>
                         <td onClick={()=>handleAdmin(user._id, user.isAdmin)} style={{cursor: 'pointer', fontWeight: 'bold', color: user.isAdmin ? 'green' : 'var(--major-color-purest)'}}>
@@ -198,8 +202,8 @@ export default function Users({userInfo}) {
 }
 
 const Header = styled.div`
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: 0px;
+  padding: 5px;
   display: grid;
   grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
 
@@ -244,8 +248,7 @@ const Header = styled.div`
 const Table = styled.div`
   padding: 0 10px;
   overflow: auto;
-  margin: -30px auto 10px auto;
-
+  margin: 0px auto 10px auto;
 
   ${ScrollBar()}
 

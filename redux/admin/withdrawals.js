@@ -65,6 +65,7 @@ export const getWithdrawal= createAsyncThunk(
                         "Authorization": `Bearer ${Cookies.get('accesstoken')}`
                     }
                 });
+               
                 return res.data;
             }            
         }
@@ -105,7 +106,7 @@ export const handleRejected= createAsyncThunk(
 )
 
 // confirm request
-export const handleConfirm= createAsyncThunk(
+export const handleConfirmed= createAsyncThunk(
     'withdraw/confirmRejected',
     async(id, {rejectWithValue})=>{
         try{
@@ -174,6 +175,7 @@ export const withdrawalsReducer = createSlice({
             state.withdrawals.isLoading = false;
             state.withdrawals.status = payload.status;
             state.withdrawals.msg = payload.msg;
+            state.withdrawals.data = payload.data;
         },
         [getWithdrawals.rejected]: (state, {payload})=>{
             state.withdrawals.isLoading = false;
@@ -189,15 +191,27 @@ export const withdrawalsReducer = createSlice({
         },
 
         // confirm request
-        [handleConfirm.pending]: (state)=>{
+        [handleConfirmed.pending]: (state)=>{
             state.confirm.isLoading = true;
         },
-        [handleConfirm.fulfilled]: (state, {payload})=>{
+        [handleConfirmed.fulfilled]: (state, {payload})=>{
             state.confirm.isLoading = false;
             state.confirm.status = payload.status;
             state.confirm.msg = payload.msg;
+
+            if(typeof current !== 'undefined'){
+                //get the returned data and replace the existing one
+                const currentState = current(state).withdrawals.data;
+                // find the id index and replace the data in payload
+                const index = currentState.findIndex(data=>{
+                    return payload.data._id === data._id
+                })
+                
+                state.plans.data[index] = payload.data;
+    
+            }
         },
-        [handleConfirm.rejected]: (state, {payload})=>{
+        [handleConfirmed.rejected]: (state, {payload})=>{
             state.confirm.isLoading = false;
             if(payload){
                 state.confirm.status = payload.status;
@@ -218,6 +232,18 @@ export const withdrawalsReducer = createSlice({
             state.reject.isLoading = false;
             state.reject.status = payload.status;
             state.reject.msg = payload.msg;
+
+           if(typeof current !== 'undefined'){
+             //get the returned data and replace the existing one
+             const currentState = current(state.withdrawals.data);
+             // find the id index and replace the data in payload
+             const index = currentState.findIndex(data=>{
+                 return payload.data._id === data._id
+             })
+             
+             state.plans.data[index] = payload.data;
+ 
+           }
         },
         [handleRejected.rejected]: (state, {payload})=>{
             state.reject.isLoading = false;

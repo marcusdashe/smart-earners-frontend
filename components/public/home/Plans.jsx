@@ -36,6 +36,7 @@ const Plans = ({userInfo}) => {
     const dispatch = useDispatch()
     const state = useSelector(state=>state);
     const {plans} = state.plans;
+    
 
   
     useEffect(()=>{
@@ -66,7 +67,8 @@ const Plans = ({userInfo}) => {
                                  modules={[Navigation, Pagination, Scrollbar, Autoplay, A11y]}
                                  spaceBetween={10}
                                  autoplay = { {delay: 5000}}
-                                 loop
+                                 scrollbar={{draggable: true}}
+                                //  loop
                                  pagination = {{ clickable: true}}
                                  slidesPerView={3}
                                  breakpoints={
@@ -143,7 +145,7 @@ const SinglePlan = ({data}) => {
 
 const StyledSinglePlan = styled.div`
   width: 330px;
-  height: fit-content;
+  height: 190px;
   background-image: linear-gradient(to right,var(--major-color-purest),#6babc9);
   color: #fff;
   user-select: none;
