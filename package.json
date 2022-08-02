@@ -1,49 +1,47 @@
 {
-  "name": "smart-earners-backend",
+  "name": "smart-earners-frontend",
   "version": "0.1.0",
-  "description": "Smart Earners RESTful API Services",
-  "main": "server.js",
+  "description": "Smart Earners Frontend",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -H 0.0.0.0 -p ${PORT:-8080}",
+    "lint": "next lint"
+  },
+  "author": "Moses & Marcus",
+  "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mozeyinedu/filter": "^1.2.1",
+    "@mozeyinedu/hooks-lab": "^3.0.2",
+    "@mozeyinedu/mover": "^1.1.1",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.8.7",
+    "@reduxjs/toolkit": "^1.8.3",
+    "axios": "^0.27.2",
+    "babel-plugin-styled-components": "^2.0.7",
+    "framer-motion": "^6.4.3",
+    "js-cookie": "^3.0.1",
+    "moment": "^2.29.3",
+    "next": "12.2.2",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.8.1",
+    "react": "18.2.0",
+    "react-avatar": "^5.0.1",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.4.0",
+    "react-redux": "^8.0.2",
+    "react-switch": "^7.0.0",
+    "styled-components": "^5.3.5",
+    "swiper": "^8.3.0"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/inedumozey/smartEarnersBackend.git"
-  },
-  "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
-  },
-  "keywords": [
-    "Smart",
-    "Earners",
-    "FX",
-    "RESTful",
-    "API"
-  ],
-  "author": "Moses & Marcus",
-  "license": "ISC",
-  "dependencies": {
-    "@mozeyinedu/email": "^2.0.0",
-    "app-root-path": "^3.0.0",
-    "axios": "^0.27.2",
-    "bcrypt": "^5.0.1",
-    "coinbase-commerce-node": "^1.0.4",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "debug": "^4.3.4",
-    "dompurify": "^2.3.8",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "express-fileupload": "^1.4.0",
-    "faker": "^6.6.6",
-    "http-errors": "^2.0.0",
-    "jsdom": "^19.0.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.6",
-    "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.7.7",
-    "winston": "^3.7.2"
+    "url": "https://github.com/inedumozey/smart-earners-frontend2.git"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.2"
   }
 }
