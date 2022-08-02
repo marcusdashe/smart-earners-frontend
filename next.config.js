@@ -21,8 +21,8 @@ const nextConfig = {
       // {
         {
           source: "/:slug*",
-          // destination: "http://localhost:4000/:slug*",
-          destination: "https://api.teamsmartearners.com/:slug*"
+          destination: "http://localhost:4000/:slug*",
+          // destination: "https://api.teamsmartearners.com/:slug*"
         }
       //   // de 1qastination: "https://squid-app-cqsgv.ondigitalocean.app/:slug*"
       // },
