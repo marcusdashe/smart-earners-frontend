@@ -5,7 +5,6 @@ const Title = ({children, level}) => {
   return (
     <StyledTitle level={level}>
         <h2> {children[0]} </h2>
-        <span></span>
         <h6> {children[1] && children[1]} </h6>
     </StyledTitle>
   )
@@ -18,25 +17,33 @@ const StyledTitle = styled.header`
     flex-flow: column;
     align-items: center;
     width: 100%;
+    @media screen and (max-width: 425px){
+        font-size: ${props => props.level == 1 ? `1.1rem` : props.level == 2 ? `.9rem`: `.9rem`};
+      }
     color: var(--major-color-purest);
  
     h2 {
+        @media screen and (max-width: 425px){
+        white-space: wrap;
+        max-width: 80% ;
+      }
+      
         text-transform:${props => props.level == 1 ? `uppercase` : `capitalize`} ;
         width: max-content;
         text-align: center;
         padding: 10px 0;
-    }
+    }   
     span{
         margin: 10px;
         width: 100px;
         background: ${ props => props.level == 1 ? `var(--bright-color )` : props.level == 2 ?  `var(--bright-color )` : `trasnparent`}; 
-        border: 2px solid ${ props => props.level == 1 ? `var(--bright-color )` :  props.level == 2 ? `var(--bright-color )`:  `trasnparent`};
+        /* border: 2px solid ${ props => props.level == 1 ? `var(--bright-color )` :  props.level == 2 ? `var(--bright-color )`:  `trasnparent`}; */
         border-radius: 50px;
     }
     h6 {
         font-weight: 200;
         font-size: 1.4rem;
-        padding-bottom: 5px;
+        padding-bottom: 0px;
     }
 `
 export default Title

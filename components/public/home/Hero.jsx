@@ -22,7 +22,7 @@ const Hero = () => {
         <HeroSectionWrapper>
             <section className="meso-layer">
                     <aside className="left-side">
-                        <caption><h1>SmartEarners</h1></caption>
+                        <h1>SmartEarners</h1>
                         <p>A Forex trading solution built for anyone with Small Capital to invest in forex and make a nice income</p>
                         <button {...snap()} onClick={()=>router.push(`/dashboard/investment/`)}>Get Started</button>
                     </aside>

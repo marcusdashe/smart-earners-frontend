@@ -9,6 +9,7 @@ const PolicyContainer = styled.div`
         width: 80%;
         margin: 0px auto;
         padding-top: 80px;
+        
     }
 
     .accept-statement {
@@ -20,17 +21,18 @@ const PolicyContainer = styled.div`
 
     .write-ups{
       width: 100%;
-      margin: 0rem auto;
+      margin: 0 auto;
       font-size: 1.2rem;
       text-align: justify;
-
+      
       p{
         color: #606060;
-        margin: 1.5rem;
+        margin: 10px;
+        /* border: 2px solid red; */
       }
       ul li{
         list-style-type: square;
-        margin: 18px;
+        margin: 15px;
       }
     }
 `

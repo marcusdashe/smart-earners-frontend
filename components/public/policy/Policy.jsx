@@ -20,7 +20,7 @@ export default function Policy() {
           </Title>
         <section className="write-ups">
           <p>
-              Hi! We &apos; ve created this Privacy Policy to explain how we collect, use, disclose and protect your information; including 
+              Hi! We &apos;ve created this Privacy Policy to explain how we collect, use, disclose and protect your information; including 
               any nonpublic, personal information (Personal Data).
           </p>
 
